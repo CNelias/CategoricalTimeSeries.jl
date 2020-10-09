@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="img/favicon.ico">
-  <title>MkLorum</title>
+  <title>CategoricalTimeSeries.jl</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="css/theme.css" />
@@ -38,7 +38,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="." class="icon icon-home"> MkLorum</a>
+        <a href="." class="icon icon-home"> CategoricalTimeSeries.jl</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -50,15 +50,39 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a>
+    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#project-layout">Project layout</a>
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#spectral-analysis">Spectral analysis</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#data-clustering">Data clustering</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#correlation-analysis">Correlation analysis</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#misc">Misc.</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
     </li>
     </ul>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="about.md">About</a>
+                    <li class="toctree-l1"><a class="" href="correlations.md">Correlations</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="spectral_properties.md">Spectral properties</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="data_clustering.md">Data clustering</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="misc/">Misc.</a>
                     </li>
                 </ul>
       </div>
@@ -70,7 +94,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href=".">MkLorum</a>
+        <a href=".">CategoricalTimeSeries.jl</a>
       </nav>
 
       
@@ -93,25 +117,53 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
+                <h1 id="categorical-time-series-analysis">Categorical Time-Series Analysis</h1>
+<h2 id="introduction">Introduction</h2>
+<p><strong>CategoricalTimeSeries.jl</strong> is a Julia package regrouping methods of categorical time-series analysis. The term <em>categorical</em> commonly refers to two types of data: <em>nominal</em> and <em>ordinal</em>. <br/>
+<strong>Nominal</strong>, or labeled values represent <em>discrete</em> units that have no intrinsic <em>order</em>, like common types of pet:</p>
 <ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
+<li>Cat</li>
+<li>Dog</li>
+<li>Bird</li>
 </ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
+<p><strong>Ordinal</strong> values on the other hand represent <em>discrete</em> and <em>ordered</em> units, like the size of a coffee cup:</p>
+<ol>
+<li>Small</li>
+<li>Medium</li>
+<li>Large</li>
+</ol>
+<p>When categorical data is layed out in function of time, one speaks of <em>categorical time-series</em>. <br/>
+<br/>
+Often, especially when dealing with ordinal time-series, it is enough to map the different values to a set of integers to carry the analysis. However, when it is not sufficient <strong>CategoricalTimeSeries.jl</strong> is here to help.</p>
+<h2 id="overview">Overview</h2>
+<p>The package lets you carry three main kind of analysis: <strong>Spectral analysis</strong>, <strong>Data clustering</strong> and <strong>correlations analysis</strong>. Other functionnalities are also avalaible (see misc.). Here is a quick overview of these methods, for more details go to the specific sections.</p>
+<h4 id="spectral-analysis">Spectral analysis</h4>
+<p>The standard approach to study spectral properties in categorical time-series is to map the different values to a set of numbers. While the overall shape of the spectrum is usually unaffected by this operation, peaks representing cyclic behaviors in the time-series can completely disappear depending on the choice of mapping. To tackle this issue, this package proposes an implementation of the spectral envelope method. It was developed by <em>David S. Stoffer</em>  in order to identify optimal mappings.</p>
+<h4 id="data-clustering">Data clustering</h4>
+<p>A categorical time-series might have many different possible values, but these values are rarely independant. Some categories are usually equivalent to one-another. For example, among the values <code>"male"</code>, <code>"female"</code>, <code>"house"</code> and <code>"car"</code>, it is evident that <code>"male"</code> and <code>"female"</code> refer to similar concepts and could be grouped in one single category. Data clustering is the task of identifying relationships of equivalency in the time-series in order to reduce it to a more efficient representation. <strong>CategoricalTimeSeries.jl</strong> offers an implementation of the <em>information bottleneck</em> to this end.</p>
+<h4 id="correlation-analysis">Correlation analysis</h4>
+<p>The notion of autocorrelation function is formally not defined for a categorical time-series. Yet, it might be of interest to know how interdependent the values of the time-series are. Efforts have been made to generalize the concept of linear correlations to categorical time-series. This package implements several of these methods.</p>
+<h4 id="misc">Misc.</h4>
+<p>Additional functions are also provided in the package, allowing for instance to test for stationarity, look for change points or simply get confidence intervals.</p>
+<h2 id="installation">Installation</h2>
+<p>Like any other Julia package, <strong>CategoricalTimeSeries.jl</strong> can be installed with</p>
+<pre><code class="language-Julia">using Pkg
+Pkg.clone(&quot;https://github.com/johncwok/CategoricalTimeSeries.jl.git&quot;)
+</code></pre>
+<p>To use it, you need to import it:</p>
+<pre><code class="language-Julia">using CategoricalTimeSeries
 </code></pre>
               
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="misc/" class="btn btn-neutral float-right" title="Misc.">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
   
 
   <hr/>
@@ -136,6 +188,8 @@ docs/
       
       
       
+        <span style="margin-left: 15px"><a href="misc/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
     </span>
 </div>
     <script>var base_url = '.';</script>
@@ -152,5 +206,5 @@ docs/
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2020-10-08 13:48:05.281445+00:00
+Build Date UTC : 2020-10-09 13:25:09.302940+00:00
 -->
