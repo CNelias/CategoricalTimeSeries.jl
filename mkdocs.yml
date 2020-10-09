@@ -1,9 +1,9 @@
 site_name: CategoricalTimeSeries.jl
 nav:
     - Home: index.md
-    - Correlations: correlations.md
-    - Spectral properties: spectral_properties.md
-    - Data clustering: data_clustering.md
+    - Correlations: Correlations.md
+    - Spectral properties: Spectral_properties.md
+    - Data clustering: Data_clustering.md
     - Misc.: misc.md
 theme: readthedocs
 shortcuts:
