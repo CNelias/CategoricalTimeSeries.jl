@@ -6,3 +6,7 @@ nav:
     - Data clustering: data_clustering.md
     - Misc.: misc.md
 theme: readthedocs
+shortcuts:
+    next: 78     # n
+    previous: 80 # p
+    search: 83   # s
