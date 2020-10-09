@@ -1,13 +1,16 @@
-# Welcome to MkDocs
+# Categorical Time Series Analysis
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+**CategoricalTimeSeries.jl** is a Julia package regrouping methods of categorical time-series analysis. The term *categorical* commonly refers to two types of data: *nominal* and *ordinal*.
+*Nominal*, or labeled values represent *discrete* units that have no intrinsic *order*, like common types of pet:
+* Cat
+* Dog
+* Bird
+* Fish
+*Ordinal* values on the other hand represent *discrete* and *ordered* units, like the size of a coffee cup:
+* 1 - Small
+* 2 - Medium
+* 3 - Large
 
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
 
 ## Project layout
 
