@@ -1,5 +1,8 @@
 site_name: CategoricalTimeSeries.jl
 nav:
     - Home: index.md
-    - About: about.md
+    - Correlations: correlations.md
+    - Spectral properties: spectral_properties.md
+    - Data clustering: data_clustering.md
+    - Misc.: misc.md
 theme: readthedocs
