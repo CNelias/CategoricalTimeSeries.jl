@@ -1,46 +1,53 @@
-# Intus terrae
+#Spectral Envelope
 
-## Habent est corpore nec victa
+The **spectral envelope** is a tool to study cyclic behaviors in categorical data. It is more informative than the traditional approach of attributing a different number to each category for power-spectral density estimation. <br/>
 
-Lorem markdownum concitat terram patruus haec caeruleam heres indignanda Phoci!
-Ad potes facinus, in trux laborant mansit; nec saxo; divitior non redeuntem
-caelum, da.
+For each frequency in the spectrum, the **spectral envelope** finds an optimal real-numbered mapping that maximizes the normed power-spectral density at this point. Therefore, no matter what mapping is choosen for the different categories, the power-spectral density will always be bounded by the spectral envelope.
 
-1. Reppulit Semeles Calydonida noxa
-2. Patre corpore teneras
-3. Deus quae discussit putas
-4. Corpore spe Musa crura
-5. Inque facinus
+The spectral envelope was defined by David S. Stoffer in *DAVID S. STOFFER, DAVID E. TYLER, ANDREW J. MCDOUGALL, Spectral analysis for categorical time series: Scaling and the spectral envelope*.\
 
-## Ab opto
+## Main functions
+```Julia
+spectral_envelope(ts; m = 3)
+```
+Computes the spectral envelope of an input categorical time-series.
 
-Aere humanis, in animal iterabat et disces clausa vultus minimum fibra; sine
-Nesso, ita. Nosces dixit. Nec viso tacetve dotem volentem duos vestri, et, sono
-aperti rector terrae mutantur montibus **exsereret**. At nisi haerenti illuc et
-gerebat avitis adfecit et a insigne iuncti moram est circuit fecit quas tecta,
-vulnere! Eodem pectore ille purpureum sceptro semianimes obscuram Phryges.
+The degree of smoothing can be chosen by the user.
 
-1. Me vero deus
-2. Mentes vento et amplexu inductas verba est
-3. Blanditiis ad sub abstuleris tulit aggere esset
-4. Stillanti Meleagron eversae relicta isdem omnes
+**Parameters**:
 
-## Mittit habuisse omnes
+* ts: Array containing input categorical time-series.
+* m: Smoothing parameter. corresponds to how many neighboring points
+        are to be involved in the smoothing (weighted average). Defaults to 3.
+**Returns**:
 
-Ego omnes, diu [procedit notavi](http://est.net/me)? Quo sola corque tanto
-*sanguis telas deserti* me partem, nisi, minus moriensque ficta
-[maestus](http://undis-ignota.net/) deus pars! Dixit et ut tumulos Caenea
-meruisse in gerit **nostris** sitim paratus validum si sed aethere.
+* freq: Array containing the frequencies of the power-spectrum (or spectral envelope).
+* se: Values of the spectral envelope for each frequency in 'freq'.
+* eigvec: Array containing the optimal real-valued mapping for each frequency point.
 
-## Et fontes
+To use the spectral envelope, call the function ```spectral_envelope```, you can then easily plot the results and extract the mapping for a given frequency.
+Here is an example with DNA data from a portion of the Epstein virus:
+```Julia
+using DelimitedFiles, Plots
+# extracting data
+data = readdlm("..\\test\\DNA_data.txt")
+# spectral envelope analysis
+f, se, eigvecs = spectral_envelope(data; m = 4)
+# plotting the results
+plot(f, se, xlabel = "Frequency", ylabel = "Intensity", title = "test data: extract of Epstein virus DNA", label = "spectral envelope")
+```
+<img src=https://user-images.githubusercontent.com/34754896/91556982-eef72680-e933-11ea-85f3-fab6aea17258.PNG width = "600">
 
-Idaei a neque fatebor trepidoque albentia Lycaei et parent proculcat exsangue
-successibus torus flumine respersit tollens **fertur**. Nebulas signataque quae
-infectaque inclusum cuius, ducebas imagine telum.
 
-1. Restagnantis Venerem rapere pereuntem nostris moenia et
-2. Dubites clamavit
-3. Ore senecta sensit in te illi conferat
+To get the **optimal mappings** for a given frequency, you can use the ```get_mapping(data, freq; m = 3)```. With the previous DNA example, we see a peak at 0.33. To get the corresponding mappings:
+```Julia
+mappings = get_mappings(data, 0.33)
+>> position of peak: 0.33 strengh of peak: 0.6
+print(mappings)
+>> ["A : 0.54", "G : 0.62", "T : -0.57", "C : 0.0"]
+```
 
-Eosdem nomen virum plangore succedere Lynceus portabat terreno. Sua inde
-**maestis fassusque concepta** scabrae restat, sed imperat nam Aeneadae!
+The function scans the vincinity of the provided goal frequency and returns the mapping for the found maxima. It also prints the positions and intensity of the peak so that you may control that you actually identified the desired peak and not a nearby sub-peak.<br/>
+The codons A and G have a similar mapping, so they could potentially have similar functions : this is however not a necessity, as the spectral envelope only seeks to maximize the power-spectrum. If you want to study equivalency of categories, you should also check the results with a clustering algorithm like https://github.com/johncwok/IntegerIB.jl.git.
+
+## Example
