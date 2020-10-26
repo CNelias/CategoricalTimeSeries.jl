@@ -7,23 +7,27 @@ For each frequency in the spectrum, the **spectral envelope** finds an optimal r
 The spectral envelope was defined by David S. Stoffer in *DAVID S. STOFFER, DAVID E. TYLER, ANDREW J. MCDOUGALL, Spectral analysis for categorical time series: Scaling and the spectral envelope*.\
 
 ## Main functions
+- - -
+**spectral_evelope**
 ```Julia
 spectral_envelope(ts; m = 3)
 ```
-Computes the spectral envelope of an input categorical time-series.
-
+Computes the spectral envelope of an input categorical time-series.  
 The degree of smoothing can be chosen by the user.
-
-**Parameters**:
-
+ul {
+    list-style-type: none;
+    margin-left: 40px;
+}
+<li>**Parameters**:<\li>
 * ts: Array containing input categorical time-series.
 * m: Smoothing parameter. corresponds to how many neighboring points
         are to be involved in the smoothing (weighted average). Defaults to 3.
+
 **Returns**:
 
-* freq: Array containing the frequencies of the power-spectrum (or spectral envelope).
-* se: Values of the spectral envelope for each frequency in 'freq'.
-* eigvec: Array containing the optimal real-valued mapping for each frequency point.
+    * freq: Array containing the frequencies of the power-spectrum (or spectral envelope).
+    * se: Values of the spectral envelope for each frequency in 'freq'.
+    * eigvec: Array containing the optimal real-valued mapping for each frequency point.
 
 To use the spectral envelope, call the function ```spectral_envelope```, you can then easily plot the results and extract the mapping for a given frequency.
 Here is an example with DNA data from a portion of the Epstein virus:
