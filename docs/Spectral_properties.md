@@ -1,4 +1,4 @@
-#Spectral Envelope
+# Spectral Envelope
 
 The **spectral envelope** is a tool to study cyclic behaviors in categorical data. It is more informative than the traditional approach of attributing a different number to each category for power-spectral density estimation. <br/>
 
