@@ -8,9 +8,8 @@ The spectral envelope was defined by David S. Stoffer in *DAVID S. STOFFER, DAVI
 
 ## Main functions
 - - -
-**<div class="border border-black-fade bg-red-light p-2 mb-2">
-  spectral_envelope
-</div>**
+**spectral_envelope**
+- - -
 ```Julia
 spectral_envelope(ts; m = 3)
 ```
@@ -27,8 +26,10 @@ The degree of smoothing can be chosen by the user.
     `eigvecs` contains <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the optimal real-valued mapping for each frequency point.
 - - -
 **get_mappings**
-
-`get_mapping(data, freq; m = 3)`
+- - -
+```Julia
+get_mapping(data, freq; m = 3)
+```
 
 Computes, for a given frequency 'freq', the optimal mappings for the categories in 'data'. Scans the vincinity of 'freq' to find the maximum of the spectral envelope, prints a sum up and returns the obtained mappings.
 > **Parameters**:
@@ -43,3 +44,51 @@ Computes, for a given frequency 'freq', the optimal mappings for the categories 
 
 
 ## Example
+Applying the spectral envelope to study a [segment of DNA](https://github.com/johncwok/SpectralEnvelope.jl/tree/master/test) from the epstein-barr virus and plotting the results:
+```
+using DelimitedFiles, Plots
+
+data = readdlm("..\\test\\DNA_data.txt")
+f, se, eigvecs = spectral_envelope(data; m = 4)
+
+plot(f, se, xlabel = "Frequency", ylabel = "Intensity", title = "test data: extract of Epstein virus DNA", label = "spectral envelope")
+```
+<img src=https://user-images.githubusercontent.com/34754896/91556982-eef72680-e933-11ea-85f3-fab6aea17258.PNG width = "500">
+
+To get the associated optimal mapping for the peak at frequency 0.33:
+```
+mappings = get_mappings(data, 0.33)
+>> position of peak: 0.33 strengh of peak: 0.6
+print(mappings)
+>> ["A : 0.54", "G : 0.62", "T : -0.57", "C : 0.0"]
+```
+
+
+## Additional functions
+- - -
+**power_spectrum**
+- - -
+```Julia
+power_spectrum(x::Array{Float64,1}, window::Int, step::Int)
+```
+Computes an estimation of the power-spectrum of the input time-series `x`.
+> **Parameters**:
+
+>>* **x** ([Array{Float,1}](https://docs.julialang.org/en/v1/base/arrays/)): 1-D Array of real-valued time-series.
+>>* **window** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): Integer specifying the size of the window for averaging Must be shorter than length(x). Recommended value is 1/10th of length(x).
+>>* **step** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): Parameters controlling the overlap between the windows. Shouldn't be biggger than div(window,2).  
+
+> **Returns**: `pxx` the estimated power-spectrum.
+
+- - -
+**varcov**
+- - -
+```Julia
+varcov(ts::Array{Float64,2})
+```
+Computes the covariance-variance matrix of a given multivariate time-series. This can also be used for a univariate time-series but the input should still be 2-D.
+> **Parameters**:
+
+>>* **ts** ([Array{Float,2}](https://docs.julialang.org/en/v1/base/arrays/)): 2-D input array of multivariate time-series.
+
+> **Returns**: `cov_matrix` the correpsonding covariance matrix.
