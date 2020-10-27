@@ -63,33 +63,3 @@ mappings = get_mappings(data, 0.33)
 print(mappings)
 >> ["A : 0.54", "G : 0.62", "T : -0.57", "C : 0.0"]
 ```
-
-
-## Additional functions
-- - -
-**power_spectrum — Function**
-- - -
-```Julia
-power_spectrum(x::Array{Float64,1}, window::Int, step::Int)
-```
-Computes an estimation of the power-spectrum of the input time-series `x`.
-> **Parameters**:
-
->>* **x** ([Array{Float,1}](https://docs.julialang.org/en/v1/base/arrays/)): 1-D Array of real-valued time-series.
->>* **window** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): Integer specifying the size of the window for averaging Must be shorter than length(x). Recommended value is 1/10th of length(x).
->>* **step** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): Parameters controlling the overlap between the windows. Shouldn't be biggger than div(window,2).  
-
-> **Returns**: `pxx`, the estimated power-spectrum.
-
-- - -
-**varcov**
-- - -
-```Julia
-varcov(ts::Array{Float64,2})
-```
-Computes the covariance-variance matrix of a given multivariate time-series. This can also be used for a univariate time-series but the input should still be 2-D.
-> **Parameters**:
-
->>* **ts** ([Array{Float,2}](https://docs.julialang.org/en/v1/base/arrays/)): 2-D input array of multivariate time-series.
-
-> **Returns**: `cov_matrix` the correpsonding covariance matrix.

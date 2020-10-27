@@ -4,7 +4,7 @@ nav:
     - Correlations: Correlations.md
     - Spectral properties: Spectral_properties.md
     - Data clustering: Data_clustering.md
-    - Misc.: misc.md
+    - Miscellaneous: misc.md
 theme: readthedocs
 shortcuts:
     next: 78     # n
