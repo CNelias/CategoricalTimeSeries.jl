@@ -132,8 +132,6 @@ Scans the IB plane with various values of beta to get the optimal curve in the I
 > **Returns**: (ixt, iyt) the values of mutual information between data and clusters and context and clusters for each β value used by the function.
 
 
-
-
 ## Examples
 - - -
 Here is a concrete example with data from [Bach chorales](https://github.com/johncwok/IntegerIB.jl/tree/master/data). The input categories are the 7 types of diatonic chords described in classical music theory. In this case, the data (input series and context) have already been compiled into a co-occurence table, so we instantiate the IB model with a probability distribution:
