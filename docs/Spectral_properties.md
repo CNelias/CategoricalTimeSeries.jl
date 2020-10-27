@@ -4,11 +4,11 @@ The **spectral envelope** is a tool to study cyclic behaviors in categorical dat
 
 For each frequency in the spectrum, the **spectral envelope** finds an optimal real-numbered mapping that maximizes the normed power-spectral density at this point. Therefore, no matter what mapping is choosen for the different categories, the power-spectral density will always be bounded by the spectral envelope.
 
-The spectral envelope was defined by David S. Stoffer in *DAVID S. STOFFER, DAVID E. TYLER, ANDREW J. MCDOUGALL, Spectral analysis for categorical time series: Scaling and the spectral envelope*.\
+The spectral envelope was defined by David S. Stoffer in *DAVID S. STOFFER, DAVID E. TYLER, ANDREW J. MCDOUGALL, Spectral analysis for categorical time series: Scaling and the spectral envelope*.
 
 ## Main functions
 - - -
-**spectral_envelope**
+**spectral_envelope — Function**
 - - -
 ```Julia
 spectral_envelope(ts; m = 3)
@@ -22,16 +22,17 @@ The degree of smoothing can be chosen by the user.
 >>* **m** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): Smoothing parameter. corresponds to how many neighboring points
         are to be involved in the smoothing (weighted average). Defaults to 3.  
 
-> **Returns**: `(freq, se, eigev)` with `freq` the frequencies of the power-spectrum, `se` <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the values of the spectral envelope for each frequency in 'freq'.
+> **Returns**: `(freq, se, eigev)`, with `freq` the frequencies of the power-spectrum, `se` <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the values of the spectral envelope for each frequency in 'freq'.
     `eigvecs` contains <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the optimal real-valued mapping for each frequency point.
+
 - - -
-**get_mappings**
+**get_mappings — Function**
 - - -
-```Julia
+```
 get_mapping(data, freq; m = 3)
 ```
 
-Computes, for a given frequency 'freq', the optimal mappings for the categories in 'data'. Scans the vincinity of 'freq' to find the maximum of the spectral envelope, prints a sum up and returns the obtained mappings.
+Computes, for a given frequency `freq`, the optimal mappings for the categories in `data`. Scans the vincinity of `freq` to find the maximum of the spectral envelope, prints a sum up and returns the obtained mappings.
 > **Parameters**:
 
 >>* **data** ([Array{Any,1}](https://docs.julialang.org/en/v1/base/arrays/)): 1-D Array containing input categorical time-series.
@@ -39,12 +40,12 @@ Computes, for a given frequency 'freq', the optimal mappings for the categories 
 >>* **m** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): Smoothing parameter. corresponds to how many neighboring points
         are to be involved in the smoothing (weighted average). Defaults to 3.  
 
-> **Returns**: `mappings` the optimal mappings for the found maxima around 'freq'.
+> **Returns**: `mappings`, the optimal mappings for the found maxima around 'freq'.
 
 
 
 ## Example
-Applying the spectral envelope to study a [segment of DNA](https://github.com/johncwok/SpectralEnvelope.jl/tree/master/test) from the epstein-barr virus and plotting the results:
+Applying the spectral envelope to study a [segment of DNA](https://github.com/johncwok/SpectralEnvelope.jl/tree/master/test) from the Epstein-Barr virus and plotting the results:
 ```
 using DelimitedFiles, Plots
 
@@ -66,7 +67,7 @@ print(mappings)
 
 ## Additional functions
 - - -
-**power_spectrum**
+**power_spectrum — Function**
 - - -
 ```Julia
 power_spectrum(x::Array{Float64,1}, window::Int, step::Int)
@@ -78,7 +79,7 @@ Computes an estimation of the power-spectrum of the input time-series `x`.
 >>* **window** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): Integer specifying the size of the window for averaging Must be shorter than length(x). Recommended value is 1/10th of length(x).
 >>* **step** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): Parameters controlling the overlap between the windows. Shouldn't be biggger than div(window,2).  
 
-> **Returns**: `pxx` the estimated power-spectrum.
+> **Returns**: `pxx`, the estimated power-spectrum.
 
 - - -
 **varcov**

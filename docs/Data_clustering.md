@@ -1,46 +1,177 @@
-# Intus terrae
+# Information bottleneck
 
-## Habent est corpore nec victa
+The information bottleneck (IB) concept can be used in the context of categorical data analysis to do **clustering**, or in other words, to look for categories which have equivalent functions.  
+Given a time-series, the IB looks for a concise representation of the data that preserves as much meaningful information as possible. In a sense, it is a lossy compression algorithm. The information to preserve can be seen as the ability to make predictions: given a specific context, how much of what is coming next can we predict ?
+The goal of this algorithm is to cluster categorical data while preserving predictive power.  
+To learn more about the information bottleneck you can look at [[1](https://arxiv.org/abs/1604.00268)] or [[2](https://doi.org/10.1080/09298215.2015.1036888)]
 
-Lorem markdownum concitat terram patruus haec caeruleam heres indignanda Phoci!
-Ad potes facinus, in trux laborant mansit; nec saxo; divitior non redeuntem
-caelum, da.
+## Quick start
+To do a simple IB clustering of categorical, the first step is to map your categorical time-series to an array of **integer** 'x'. This can be done with the ```mapping``` function. For example, with toy data consisting of three categories 'a', 'b' and 'c':
+```
+data = ["a", "b", "c", "a", "c"]
+mapping(data)
+>> [1, 2, 3, 1, 3]
+```
+Then instantiate a model and optimize it:
+```
+data = readdlm("/path/to/data/")
+x = mapping(data)
+model = IB(x) #you can call IB(x, beta). beta is a real number that controls the amount of compression.
+IB_optimize!(model)
+```
+Finally, to see the results:
+```
+print_results(model)
+```
+Rows are clusters and columns correspond to the input categories. The result is the probability **p(t|x)** of a category belonging to a given cluster. Since most of the probabilities are very low, ```print_results``` **sets every p(t|x) > 0.1 to 1**. **p(t|x) < 0.1** are set to **0 otherwise** for ease of readability (see further usage for more options).
 
-1. Reppulit Semeles Calydonida noxa
-2. Patre corpore teneras
-3. Deus quae discussit putas
-4. Corpore spe Musa crura
-5. Inque facinus
+## Further usage
+To have a better grasp of the results produced by IB clustering, it is important to understand the parameters influencing the algorithm of **IB** model structures.
+The two most important parameters are the amount **compression** and the definition of the **context**. They are provided upon instanciation:
+- - -
+**IB — Type**
+- - -
+```
+IB(x, y, β = 100, algorithm = "IB")
+IB(x, β = 100, algorithm = "IB")
+IB(pxy::Array{Float64,2}, β = 100, algorithm = "IB")
+```
 
-## Ab opto
+> **Parameters**:
 
-Aere humanis, in animal iterabat et disces clausa vultus minimum fibra; sine
-Nesso, ita. Nosces dixit. Nec viso tacetve dotem volentem duos vestri, et, sono
-aperti rector terrae mutantur montibus **exsereret**. At nisi haerenti illuc et
-gerebat avitis adfecit et a insigne iuncti moram est circuit fecit quas tecta,
-vulnere! Eodem pectore ille purpureum sceptro semianimes obscuram Phryges.
+>>* **x** ([Array{Int,1} or Array{Float,1}](https://docs.julialang.org/en/v1/base/arrays/)): 1-D Array containing input categorical time-series.
+>>* **y** ([Array{Any,1}](https://docs.julialang.org/en/v1/base/arrays/)): Context used for data compression. If not provided, defaults to "next element", meaning for each element of x, y represent the next element in the series. This means that the IB model will try to preserve as much information between 'x' and it's next element. (see `get_y` function)
+>>* **β** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): parameter controlling the degree of compression. The smaller `β` is, the more compression. The higher `β`, the bigger the mutual information I(X;T) between the final clusters and original categories is.
+There are two undesirable situations: if `β` is too small, maximal compression is achieved and all information is lost. If `β` is too high, there is no compression.<br/>  with "IB" algorithm, a high `β` value (~200) is a good starting point. With "DIB" algorithm, `β` > ~5 can already be too high to achieve any compression. <br/> `β` values > ~1000 break optimization because all metrics are effectively 0.
+>>* **algorithm** ([String](https://docs.julialang.org/en/v1/manual/strings/)): The kind of compression algorithm to use. "IB" choses the original IB algorithm (Tishby, 1999) which does *soft* clustering, "DIB" choses the *deterministic* IB algorithm (DJ Strouse, 2016) doing *hard* clustering. The former seems to produce more meaningfull clustering. Defaults to "IB".
+>>* **pxy** ([Array{Float,2}](https://docs.julialang.org/en/v1/base/arrays/)): joint probability of element 'x' to occur with context 'y'. If not provided, is computed automatically. From `x` and `y`.
 
-1. Me vero deus
-2. Mentes vento et amplexu inductas verba est
-3. Blanditiis ad sub abstuleris tulit aggere esset
-4. Stillanti Meleagron eversae relicta isdem omnes
 
-## Mittit habuisse omnes
+> **Returns**: instance of the `IB` mutable struct.
 
-Ego omnes, diu [procedit notavi](http://est.net/me)? Quo sola corque tanto
-*sanguis telas deserti* me partem, nisi, minus moriensque ficta
-[maestus](http://undis-ignota.net/) deus pars! Dixit et ut tumulos Caenea
-meruisse in gerit **nostris** sitim paratus validum si sed aethere.
 
-## Et fontes
+- - -
+**get_y — Function**
+- - -
+```
+get_y(data, type = "nn")
 
-Idaei a neque fatebor trepidoque albentia Lycaei et parent proculcat exsangue
-successibus torus flumine respersit tollens **fertur**. Nebulas signataque quae
-infectaque inclusum cuius, ducebas imagine telum.
+```
+Defines and return the **context** associated with the input time-series `data`.
+> **Parameters**:
 
-1. Restagnantis Venerem rapere pereuntem nostris moenia et
-2. Dubites clamavit
-3. Ore senecta sensit in te illi conferat
+>>* **data** ([Array{Any,1}](https://docs.julialang.org/en/v1/base/arrays/)): 1-D Array containing input categorical time-series.
+>>* **type** ([String](https://docs.julialang.org/en/v1/manual/strings/)): type of context to use. Possible values are "nn" or "an". Defaults to "nn" (for *next neighbor*). This means, if data = ["a","b","c","a","b"], the "nn" context vector y is ["b","c","a","b"]. Chosing "an" (for adjacent neighbors) not only includes the next neighbor but also the previous neighbor, every element of y is then a tuple of previous and next neihbor.
 
-Eosdem nomen virum plangore succedere Lynceus portabat terreno. Sua inde
-**maestis fassusque concepta** scabrae restat, sed imperat nam Aeneadae!
+> **Returns**: `y`, associated context to `data`.
+
+
+## Additional functions
+- - -
+**calc_metrics — Function**
+- - -
+```
+calc_metrics(model::IB)
+```
+Computes the different metrics (*H(T), I(X;T), I(Y;T)* and *L*) of an IB model based on its internal probability distributions.
+> **Parameters**:
+>>* **model**: an IB model
+
+> **Returns**: (ht, ixt, iyt, L), metrics. ht is the entropy of the clustered representation. ixt is the mutual information between input data and clustered representation. iyt is the mutual information between context and clustered representation. L is the loss function.
+
+- - -
+**search_optima — Function**
+- - -
+```
+search_optima!(model::IB, n_iter = 10000)
+```
+Otimization is not 100% guaranteed to converge to a **global maxima**. this function initializes and optimizes the provided `IB` model `n_iter` times, then, the optimization with the lowest `L` value is selected. The provided `IB` is updated in place. <br/>
+> **Parameters**:
+
+>>* **model**: an IB model
+>>* **n_iter** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): defined how many initialization/optimization are performed for the optima search.
+
+> **Returns**: `nothing`. The update is done in place.
+
+- - -
+**print_results — Function**
+- - -
+```
+print_results(m::IB, disp_thres = 0.1)
+```
+Displays the results of an optimized IB model.
+> **Parameters**:
+
+>>* **m**: an IB optimized model
+>>* **disp_thres** ([Float](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): The probability threshold to consider that a category belongs to a given threshold. This makes reading the results more easy. Defaults to 0.1.
+
+> **Returns**: `nothing`. Print the results.
+
+If you want to get the **raw probabilities** `p(t|x)` after optimization (`print_results` filters it for ease of readability), you can access them with :
+```
+pt_x = model.qt_x
+```
+Similarly, you can also get p(y|t) or p(t) with `model.qy_t` and `model.qt`.<br/>
+
+
+- - -
+**get_IB_curve — Function**
+- - -
+```
+`get_IB_curve(m::IB, start = 0.1, stop = 400, step = 0.05; glob = false)`
+```
+Scans the IB plane with various values of beta to get the optimal curve in the IB plane.
+> **Parameters**:
+
+>>* **m**: an IB optimized model
+>>* **start** ([Float](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): The start β value.
+>>* **stop** ([Float](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): The ending β value
+>>* **step** ([Float](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): The steps in β values that the function takes upon optimizing the provided model.
+>>* **glob** ([Bool](https://docs.julialang.org/en/v1/manual/types/): if True, each optimization is done with the help of `search_optima` (more computationally demanding). Default to False.
+
+> **Returns**: (ixt, iyt) the values of mutual information between data and clusters and context and clusters for each β value used by the function.
+
+
+
+
+## Examples
+
+Here is a concrete example with data from [Bach chorales](https://github.com/johncwok/IntegerIB.jl/tree/master/data) The input categories are the 7 types of diatonic chords described in classical music theory.
+```
+bach = CSV.read("..\\data\\bach_histogram")
+pxy = Matrix(bach)./sum(Matrix(bach))
+model = IB(pxy, 1000) #You can also instantiate 'model' with a probability distribution instead of a time-series.
+IB_optimize!(model)
+print_results(model)
+```
+The output is in perfect accordance with western music theory. It tells us that we can group category 1, 3 and 6 together : this corresponds to the ```tonic``` function in classical harmony. Category 2 and 4 have been clustered together, this is what harmony calls ```subdominant```. Finall category 5 and 7 are joined : this is the ```dominant``` function.
+
+<img src=https://user-images.githubusercontent.com/34754896/90241511-7c625300-de2b-11ea-800d-3cee1da9fdf5.PNG width = "400">
+
+```
+data = CSV.read("..\\data\\coltrane")
+context = get_y(data, "an") # "an" stands for adjacent neighbors.
+model = IB(data, context, 500) # giving the context as input during instantiation.
+IB_optimize!(model)
+```
+
+Here is an example with the bach chorale dataset:
+```
+using Plots
+bach = CSV.read("..\\data\\bach_histogram")
+pxy = Matrix(bach)./sum(Matrix(bach))
+model = IB(pxy, 1000)
+x, y = get_IB_curve(model)
+a = plot(x, y, color = "black", linewidth = 2, label = "Optimal IB curve", title = "Optimal IB curve \n Bach's chorale dataset")
+scatter!(a, x, y, color = "black", markersize = 1.7, xlabel = "I(X;T) \n", ylabel = "- \n I(Y;T)", label = "", legend = :topleft)
+```
+
+<img src=https://user-images.githubusercontent.com/34754896/90395817-72438d00-e095-11ea-8872-3030db40539c.PNG width = "600">
+
+## Acknowledgments
+Special thanks to Nori jacoby from whom I learned a lot on the subject. The IB part of this code was tested with his data and reproduces his results. <br/>
+The present implementation is adapted from DJ Strouse's paper https://arxiv.org/abs/1604.00268 and his python implementation.
+
+
+[1]: https://arxiv.org/abs/1604.00268
+[2]: https://doi.org/10.1080/09298215.2015.1036888
