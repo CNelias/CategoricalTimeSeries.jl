@@ -1,4 +1,4 @@
-name = "CateregoricalTimeSeries"
+name = "CategoricalTimeSeries"
 uuid = "f5116226-a574-5b1a-a4a4-91edc520f498"
 
 authors = ["Corentin Nelias <cwokpoubelle@laposte.net>"]
