@@ -12,7 +12,7 @@ pewee = Int64.(readdlm("pewee")[:,1])
 @test round(H(pewee), digits = 2) == 1.49
 
 #testing spectral envelope method by reproducing David's stoffer results.
-DNA = readdlm("DNA_data.txt")
+DNA = readdlm("DNA_data.txt", ',')[1,:]
 x,y,e = spectral_envelope(DNA; m=0)
 @test round(spectral_envelope(DNA)[2][5]; digits = 3) == round(0.175; digits = 3)
 
