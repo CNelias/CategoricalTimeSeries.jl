@@ -5,24 +5,19 @@ authors = ["Corentin Nelias <cwokpoubelle@laposte.net>"]
 version = "0.1.0"
 
 [deps]
-Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
-DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
-StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
-FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
-Polynomials = "f27b6e38-b328-58d1-80ce-0feddd5e7a45"
-DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
+IntegerIB = "6503ae40-fab4-4b0f-9ca5-b3ead672bc37"
+SpectralEnvelope = "ff710082-a9bc-57f3-81b5-980fc0acaaef"
+SerialDependence = "807e6dab-69e6-5de1-b50c-dbd9513c50df"
 
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
 
 [targets]
 test = ["Test"]
 
 [compat]
-FFTW = "1.1.0"
-Polynomials = "1.1.1"
-DataFrames = "0.19.4"
-StatsBase = "0.32.0"
+IntegerIB = "0.1.0"
+SpectralEnvelope = "1.0.0"
+SerialDependence  = "0.1.0"
 julia = "1.2"
