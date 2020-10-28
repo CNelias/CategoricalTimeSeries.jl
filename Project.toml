@@ -1,5 +1,5 @@
 name = "CateregoricalTimeSeries"
-uuid = ""f5116226-a574-5b1a-a4a4-91edc520f498"
+uuid = "f5116226-a574-5b1a-a4a4-91edc520f498"
 
 authors = ["Corentin Nelias <cwokpoubelle@laposte.net>"]
 version = "0.1.0"
