@@ -1,4 +1,5 @@
 using Test
+using DelimitedFiles
 using CategoricalTimeSeries
 
 #testing the serial dependences functions by reproducing the results from C. Weiss's book "An Introduction to Discrete-Valued Time Series".
