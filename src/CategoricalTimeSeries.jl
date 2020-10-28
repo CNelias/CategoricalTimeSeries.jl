@@ -1,7 +1,7 @@
 module CategoricalTimeSeries
 
-include("IntegerIB.jl")
-include("SerialDependence.jl")
-include("SpectralEnvelope.jl")
+using IntegerIB
+using SerialDependence
+using SpectralEnvelope
 
 end
