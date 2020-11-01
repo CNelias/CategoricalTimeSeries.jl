@@ -12,7 +12,7 @@ It regroups the modules [SpectralEnvelope](https://github.com/johncwok/SpectralE
 The package can be installed via:
 ```Julia
 using Pkg
-Pkg.add("categoricalTimeSeries")
+Pkg.add("CategoricalTimeSeries")
 ```
 
 ## Documentation
