@@ -20,19 +20,17 @@ Often, especially when dealing with ordinal time-series, it is enough to map the
 ## Overview
 The package lets you carry three main kind of analysis: **Spectral analysis**, **Data clustering** and **correlations analysis**. Other functionnalities are also avalaible (see misc.). Here is a quick overview of these methods, for more details go to the specific sections.
 #### Spectral analysis
-The standard approach to study spectral properties in categorical time-series is to map the different values to a set of numbers. While the overall shape of the spectrum is usually unaffected by this operation, peaks representing cyclic behaviors in the time-series can completely disappear depending on the choice of mapping. To tackle this issue, this package proposes an implementation of the spectral envelope method. It was developed by *David S. Stoffer*  in order to identify optimal mappings.
+The standard approach to study spectral properties in categorical time-series is to map the different values to a set of numbers. While the overall shape of the spectrum is usually unaffected by this operation, peaks representing cyclic behaviors in the time-series can completely disappear depending on the choice of mapping. To tackle this issue, one can use the spectral envelope method. It was developed by *David S. Stoffer*  in order to identify optimal mappings.
 #### Data clustering
-A categorical time-series might have many different possible values, but these values are rarely independant. Some categories are usually equivalent to one-another. For example, among the values `"male"`, `"female"`, `"house"` and `"car"`, it is evident that `"male"` and `"female"` refer to similar concepts and could be grouped in one single category. Data clustering is the task of identifying relationships of equivalency in the time-series in order to reduce it to a more efficient representation. **CategoricalTimeSeries.jl** offers an implementation of the *information bottleneck* to this end.
+A categorical time-series might have many different possible values, but these values are rarely independant. Some categories can be loosely equivalent to one-another. For example, among the values `"male"`, `"female"`, `"house"` and `"car"`, it is evident that `"male"` and `"female"` refer to similar concepts and could be grouped in one single category. Data clustering is the task of identifying such relationships in the time-series in order to reduce it to a more efficient representation. Here, an implementation of the *information bottleneck* concept is used to this end.
 #### Correlation analysis
-The notion of autocorrelation function is formally not defined for a categorical time-series. Yet, it might be of interest to know how interdependent the values of the time-series are. Efforts have been made to generalize the concept of linear correlations to categorical time-series. This package implements several of these methods.
-#### Misc.
-Additional functions are also provided in the package, allowing for instance to test for stationarity, look for change points or simply get confidence intervals.
+The notion of autocorrelation function is formally not defined for a categorical time-series. Yet, it might be of interest to know how inter-dependent the values of the time-series are. Efforts have been made to generalize the concept of linear correlations to categorical time-series. This package implements several of these methods.
 
 ##Installation
-Like any other Julia package, **CategoricalTimeSeries.jl** can be installed with
+**CategoricalTimeSeries.jl** can be installed with
 ```Julia
 using Pkg
-Pkg.clone("https://github.com/johncwok/CategoricalTimeSeries.jl.git")
+Pkg.add("CategoricalTimeSeries")
 ```
 To use it, you need to import it:
 ```Julia
