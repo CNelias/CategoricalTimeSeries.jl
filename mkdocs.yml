@@ -4,6 +4,7 @@ nav:
     - Correlations: Correlations.md
     - Spectral properties: Spectral_properties.md
     - Data clustering: Data_clustering.md
+    - Motif recognition: Motif_recognition.md
     - Miscellaneous: misc.md
 theme: readthedocs
 shortcuts:

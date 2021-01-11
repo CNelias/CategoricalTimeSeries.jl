@@ -29,7 +29,7 @@ The degree of smoothing can be chosen by the user.
 **get_mappings — Function**
 - - -
 ```
-get_mapping(data, freq; m = 3)
+get_mappings(data, freq; m = 3)
 ```
 
 Computes, for a given frequency `freq`, the optimal mappings for the categories in `data`. Scans the vincinity of `freq` to find the maximum of the spectral envelope, prints a sum up and returns the obtained mappings.
