@@ -1,5 +1,7 @@
 # Motif recognition
 
+/!\ this part of the package is not yet online, but will be uploaded in the coming days ! /!\
+
 Time-series sometimes present **repeating motifs** (or patterns) that are worthwhile identifying. The detection of such motifs can be difficult depending on the amount of noise in the time-series. <br/>
 
 In the case of categorical time-series, the lack of proper metric to measure distance between motifs can make their detection tricky. Improper distances like the number of differences between the two motifs is commonly used.
