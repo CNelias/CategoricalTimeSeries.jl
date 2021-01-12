@@ -32,10 +32,10 @@ Returns an array of `pattern`, inside of which the patterns are classified by ho
 >>* **d** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): allowed errors (differences) between motifs repetitions.
 >>* **t = w - d** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): size of the masks to use for random projection in the detection (defaults to w - d).
 >>* **iters = 1000** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): the numbers of iterations for the random projection process (defaults to 1000)
->>* **tolerance = 0.95** ([Float](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): threshold of motif identification. Defaults to 0.95
+>>* **tolerance = 0.95** ([Float](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): threshold of motif identification. If set to 1, only matrix entries that are strictly superior to the (probabilistic) threshold are taken into account. Defaults to 0.7, meaning that matrix entries need to be bigger than 0.7*threshold.
 
 > **Returns** :
->>* **motifs** : array of `pattern` instances classified by frequency. motifs[1] is therefore the most frequent motif, motifs[2] the second most observed and so on.
+>>* **motifs** : list of `pattern` instances sorted by frequency of occurence. motifs[1] is therefore the most frequent motif, motifs[2] the second most observed and so on.
 
 - - -
 **find_motifs — Function**
@@ -82,27 +82,36 @@ Plots all repetitions of an input `pattern` instance on top of the input time-se
 
 
 ## Example
-In an improvisation from John coltrane [segment of DNA](https://github.com/johncwok/SpectralEnvelope.jl/tree/master/test), we extract a time-series of intervals.
-A spectral envelope analysis reveal a peak at period ~8, so we expect to find motifs of length ~8 and allow for 1 error between them.
+From Michael Brecker's improvisation over the piece ["confirmation"](https://github.com/johncwok/MotifRecognition.jl/tree/main/test), we extract a time-series of pitch intervals (difference from one note to the next).
+A spectral envelope analysis reveals a peak at period 6~7, so we look for motifs of length 7 and allow for 1 error between them.
 After detection, we visualize the most frequent motif:
-```Julia
+```
 using DelimitedFiles
 
-data = readdlm("..\\test\\countdown.txt")
-motifs = detect_motifs(data, 8, 1)
-most_frequent_motif = motifs[1]
-plot_motif(most_frequent_motif)
+data = readdlm("..\\test\\confirmation")
+pitch = mod.(data, 12) #Removing octave position: not needed
+intervals = pitch[2:end] .- pitch[1:end-1] #getting interval time-series.
+m = detect_motifs(intervals, 7, 1; iters = 700, tolerance = 0.7)
+plot_motif(m[1]) #plotting most frequent motif
 ```
 
-<img src=https://user-images.githubusercontent.com/34754896/91556982-eef72680-e933-11ea-85f3-fab6aea17258.PNG width = "500">
+<img src=https://user-images.githubusercontent.com/34754896/104308882-9c2c9e80-54d1-11eb-8882-cc31b7b2af8b.PNG width = "500">
 
-We notice that the motif `[.....]` seems to be the underlying shape so we do an exact search, and plot the found motif on top of each other:
-```Julia
-true_shape = [...]
-motif = find_motifs(true_shape, data)
+We notice that the motif `[-1, -2, 10, -10, 2, 3, 5]` seems to be the underlying (consensus) shape. In musical notation, this motif would look like this (written in C major):
+<img src=https://user-images.githubusercontent.com/34754896/104315350-1ca3cd00-54db-11eb-864d-3a1da9d5efeb.PNG width = "500">
+
+We do an exact search with 1 error allowed to check if our previous detection missed any repetitions, and plot the found motif on top of each other:
+```
+consensus_shape = [-1, -2, 10, -10, 2, 3, 5]
+motif = find_motifs(data, consensus_shape, 1)
 plot_motif(motif)
 ```
+<img src=https://user-images.githubusercontent.com/34754896/104308882-9c2c9e80-54d1-11eb-8882-cc31b7b2af8b.PNG width = "500">
+
+Here, we obtain the same plot as before but this is not necessarily always the case. Knowing the consensus motif usually allows to find its repetitions more efficiently.
+
 Now, we visualize the repetitions of the motif in the time-series:
-```Julia
+```
 plot_motif(motif, ts)
 ```
+<img src=https://user-images.githubusercontent.com/34754896/104313663-a1411c00-54d8-11eb-9854-70bd5ed9ba2f.PNG width = "600">
