@@ -1,6 +1,6 @@
 # Motif recognition
 
-/!\ this part of the package is not yet online, but will be uploaded in the coming days ! /!\
+**/!\ this part of the package is not yet online, but will be uploaded in the coming days ! /!\ **
 
 Time-series sometimes present **repeating motifs** (or patterns) that are worthwhile identifying. The detection of such motifs can be difficult depending on the amount of noise in the time-series. <br/>
 
