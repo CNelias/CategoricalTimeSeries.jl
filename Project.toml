@@ -2,7 +2,7 @@ name = "CategoricalTimeSeries"
 uuid = "f5116226-a574-5b1a-a4a4-91edc520f498"
 
 authors = ["Corentin Nelias <cwokpoubelle@laposte.net>"]
-version = "0.1.0"
+version = "0.5"
 
 [deps]
 IntegerIB = "6503ae40-fab4-4b0f-9ca5-b3ead672bc37"
