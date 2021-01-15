@@ -29,3 +29,10 @@ h, ixt, iyt, L = calc_metrics(model)
 @test round(iyt, digits = 2) == 0.78
 @test round(L, digits = 2) == 1.32
 
+#testing motif recognition
+data = readdlm("confirmation")
+pitch = mod.(data, 12)
+intervals = pitch[2:end] .- pitch[1:end-1]
+m = detect_motifs(intervals, 7, 1; iters = 700, tolerance = 0.7)
+@test m[1].shape == [-1.0, -2.0, 10.0, -10.0, 2.0, 3.0, 5.0]
+
