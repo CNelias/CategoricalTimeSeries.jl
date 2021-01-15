@@ -150,8 +150,8 @@ returns an integer mapping of input time-series 'ts'.
 function mapping(ts)
     categories = unique(ts)
     arr = copy(ts)
-    for (idx, elt) in arr
-        for (pos, c) in categories
+    for (idx, elt) in enumerate(arr)
+        for (pos, c) in enumerate(categories)
             if elt == c
                 arr[idx] = pos
             end
