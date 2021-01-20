@@ -1,6 +1,7 @@
 site_name: CategoricalTimeSeries.jl
+
 repo_url: https://github.com/johncwok/CategoricalTimeSeries.jl.git
-repo_name: 'GitHub'
+edit_uri: ""
 
 nav:
     - Home: index.md
@@ -9,7 +10,9 @@ nav:
     - Data clustering: Data_clustering.md
     - Motif recognition: Motif_recognition.md
     - Miscellaneous: misc.md
+
 theme: readthedocs
+
 shortcuts:
     next: 78     # n
     previous: 80 # p

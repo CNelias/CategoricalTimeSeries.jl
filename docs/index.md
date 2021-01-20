@@ -29,6 +29,7 @@ Time-series sometimes present repeating motifs (or patterns) that are worthwhile
 The notion of autocorrelation function is formally not defined for a categorical time-series. Yet, it might be of interest to know how inter-dependent the values of the time-series are. Efforts have been made to generalize the concept of linear correlations to categorical time-series. This package implements several of these methods.
 
 ##Installation
+The source code is available on [GitHub](https://github.com/johncwok/CategoricalTimeSeries.jl), otherwise,
 **CategoricalTimeSeries.jl** can be installed with
 ```Julia
 using Pkg
