@@ -19,3 +19,4 @@ test = ["Test"]
 
 [compat]
 julia = "^1.0"
+MotifRecognition = "^0.1"
