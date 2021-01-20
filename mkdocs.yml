@@ -1,4 +1,7 @@
 site_name: CategoricalTimeSeries.jl
+repo_url: https://github.com/example/repository/
+repo_name: 'GitHub'
+
 nav:
     - Home: index.md
     - Correlations: Correlations.md
