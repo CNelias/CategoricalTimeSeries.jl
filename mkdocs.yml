@@ -1,5 +1,5 @@
 site_name: CategoricalTimeSeries.jl
-repo_url: https://github.com/example/repository/
+repo_url: https://github.com/johncwok/CategoricalTimeSeries.jl.git
 repo_name: 'GitHub'
 
 nav:
