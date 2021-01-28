@@ -20,4 +20,3 @@ test = ["Test"]
 
 [compat]
 julia = "^1.0"
-Plots = "^1.0"
