@@ -31,7 +31,12 @@ Therefore, depending on the type of categorical data and the problem at hand, it
 
 The purpose of **CategoricalTimeSeries.jl** is to provide such tools. The package comes with an extensive documentation available online: https://categoricaltimeseriesjl.readthedocs.io/en/latest/
 
-# Overview
+# Statement of need
+
+While several implementations of categorical time-series analysis methods are accessible online, they are written in different languages, some of which are not free (e.g. Matlab). Additionally, no implementation for methods such as the *spectral envelope* of the *random projection* (see *Overview of functionalities* below) were available online. This package centralizes and implements most of the standard methods of categorical time-series analysis in a single toolbox fully written in the Julia language. 
+
+
+# Overview of functionalities
 
 **CategoricalTimeSeries.jl** was designed to be easy to use and produce results that are simple to plot. 
 Consequently, the methods implemented in the package take as input 1-D arrays of any type. 
@@ -71,55 +76,8 @@ If certain categories inside a time-series present functional similarities, one 
 This reduces the total number of categories and can simplify the analysis of the time-series. To do this, we use an implementation based on the *Information bottleneck* concept (@Tishby2000, @Strouse2016).
 After an initial bottleneck model of the structure ```IB``` is instantiated, it can be optimized with the ```IB_optimize!``` function to reveal potential clusters of categories. An overview of the results can be obtained with the ```print_results``` function. 
 
-
-
-
-
-
-
-# Applications
-
-Single dollars ($) are required for inline mathematics e.g. $f(x) = e^{\pi/x}$
-
-Double dollars make self-standing equations:
-
-$$\Theta(x) = \left\{\begin{array}{l}
-0\textrm{ if } x < 0\cr
-1\textrm{ else}
-\end{array}\right.$$
-
-You can also use plain \LaTeX for equations
-\begin{equation}\label{eq:fourier}
-\hat f(\omega) = \int_{-\infty}^{\infty} f(x) e^{i\omega x} dx
-\end{equation}
-and refer to \autoref{eq:fourier} from text.
-
-# Citations
-
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
-
-If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for @fidgit.
-
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
-
-# Figures
-
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
-and referenced from text using \autoref{fig:example}.
-
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% }
-
 # Acknowledgements
 
-We acknowledge contributions from Brigitta Sipocz, Syrtis Major, and Semyeong
-Oh, and support from Kathryn Johnston during the genesis of this project.
+The author thanks Nori Jacoby discussing and providing hinsight on the *Information bottleneck* concept.
 
 # References
