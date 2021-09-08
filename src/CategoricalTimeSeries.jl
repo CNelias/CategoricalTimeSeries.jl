@@ -10,5 +10,4 @@ export cramer_coefficient, cohen_coefficient, conditional_entropy, LaggedBivaria
 export spectral_envelope, get_mappings, detrend, smooth, power_spectrum
 export detect_motifs, mapping, find_motifs, plot_motif, expected_matches, least_occurence_threshold
 
-
 end
