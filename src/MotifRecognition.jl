@@ -1,7 +1,4 @@
-module MotifRecognition
-
 using Plots
-
 
 include("CollisionMatrix.jl")
 include("Thresholds.jl")
@@ -161,6 +158,3 @@ function mapping(ts)
 end
 
  export detect_motifs, mapping, find_motifs, plot_motif, expected_matches, least_occurence_threshold
-
-
-end
