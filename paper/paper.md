@@ -33,7 +33,7 @@ The purpose of **CategoricalTimeSeries.jl** is to provide such tools. The packag
 
 # Statement of need
 
-While several implementations of categorical time-series analysis methods are accessible online, they are written in different languages, some of which are not free (e.g. Matlab). Additionally, no implementation for methods such as the *spectral envelope* of the *random projection* (see *Overview of functionalities* below) were available online. This package centralizes and implements most of the standard methods of categorical time-series analysis in a single toolbox fully written in the Julia language. 
+While several implementations of categorical time-series analysis methods are accessible online, they are written in different languages, some of which are not free (e.g. Matlab). Additionally, no implementations for methods such as the *spectral envelope* of the *random projection* (see *Overview of functionalities* below) were available online. This package centralizes and implements most of the standard methods of categorical time-series analysis in a single toolbox fully written in the Julia language. 
 
 
 # Overview of functionalities
@@ -62,7 +62,7 @@ They take as input a 1-D array representing the time-series to study and an arra
 
 **Motif recognition**:
 Time-series can present repeating motifs that are worthwhile identifying. However, simple line-search algorithm are not adapted for all motifs [@Pevzner:2000]
-Moreover, the lack of proper distance measurement complicates the saerch in the context of categorical time-series.  
+Moreover, the lack of proper distance measurement complicates the search in the context of categorical time-series.  
 An implementation using the *random projection* method [@Buhler:2002] is used here.
 The identification of potential motifs is done with the ```detect_motifs``` function.
 It takes as required input a time-series (1-D array), the length of the motifs to look for, and the number of allowed errors. 
@@ -70,12 +70,12 @@ It returns an instance of the ```pattern``` structure which stores properties of
 
 
 **Data clustering**:
-If certain categories inside a time-series present functional similarities, one might wish to clusther them together into a single equivalent representation.
+If certain categories inside a time-series present functional similarities, one might wish to cluster them together into a single equivalent representation.
 This reduces the total number of categories and can simplify the analysis of the time-series. To do this, we use an implementation based on the *Information bottleneck* concept [@Tishby:2000; @Strouse:2016].
 After an initial bottleneck model of the structure ```IB``` is instantiated, it can be optimized with the ```IB_optimize!``` function to reveal potential clusters of categories. An overview of the results can be obtained with the ```print_results``` function. 
 
 # Acknowledgements
 
-The author thanks Nori Jacoby discussing and providing hinsight on the *Information bottleneck* concept.
+The author thanks Nori Jacoby for discussing and providing insight on the *Information bottleneck* concept.
 
 # References
