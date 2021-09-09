@@ -58,13 +58,10 @@ The notion of autocorrelation function is formally not defined for a categorical
 Yet, it might be of interest to know how inter-dependent the values of the time-series are. 
 We implemented several coefficients generalizing the concept of linear correlations to categorical time-series.
 Cramer's coefficient, Cohen's coefficient and Theil's U can respectively be computed via the ```cramer_coefficient```, ```cohen_coefficient``` and ```theils_u``` functions.
-They take as input a 1-D array representing the time-series to study and an array of lags storing the lag values at which the coefficients are evaluated. For example:
-```Julia
-cramer_coefficient(series, lags)
-```
+They take as input a 1-D array representing the time-series to study and an array of lags storing the lag values at which the coefficients are evaluated. 
 
 **Motif recognition**:
-Time-series can present repeating motifs that are worthwhile identifying. However, simple line-search algorithm are not adapted for all motifs (@Pevzner2000)
+Time-series can present repeating motifs that are worthwhile identifying. However, simple line-search algorithm are not adapted for all motifs [@Pevzner:2000]
 Moreover, the lack of proper distance measurement complicates the saerch in the context of categorical time-series.  
 An implementation using the *random projection* method [@Buhler:2002] is used here.
 The identification of potential motifs is done with the ```detect_motifs``` function.
