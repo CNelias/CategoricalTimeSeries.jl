@@ -53,7 +53,7 @@ The ```spectral_envelope``` function takes as input a time-series (1-D array) an
 For a finer study of the mappings themselves, the ```get_mappings``` function can be used.
 
 #### Association analysis
-The notion of autocorrelation function is formally not defined for a categorical time-series. 
+The notion of autocorrelation function is formally not defined for a categorical time-series ([@Weiss:2018]). 
 Yet, it might be of interest to know how inter-dependent the values of the time-series are. 
 We implemented several coefficients generalizing the concept of linear correlations to categorical time-series.
 Cramer's coefficient, Cohen's coefficient and Theil's U can respectively be computed via the ```cramer_coefficient```, ```cohen_coefficient``` and ```theils_u``` functions.
