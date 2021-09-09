@@ -183,10 +183,12 @@ mutable struct IB
     qt_x
     qt
     qy_t
-    IB(x, y, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x,y), get_py(x,y), get_pxy(x,y), get_py_x(x,y), init_values(x, y, algorithm)...)
-    IB(x::Array{Float64,1}, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), init_values(x,  get_y(x), algorithm)...)
-    IB(x::Array{Int64,1}, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), init_values(x,  get_y(x), algorithm)...)
-    IB(pxy::Array{Float64,2}, β = 100, algorithm = "IB") = new(algorithm, β, nothing, get_px(pxy), get_py(pxy), pxy, get_py_x(pxy), init_values(pxy, algorithm)...)
+    IB(x, y, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x,y), get_py(x,y), get_pxy(x,y), get_py_x(x,y), nothing, init_values(x, y, algorithm)...)
+    IB(x::Array{Float64,1}, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), nothing, init_values(x,  get_y(x), algorithm)...)
+    IB(x::Array{Any,1}, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), nothing, init_values(x,  get_y(x), algorithm)...)
+    IB(x::Array{Int64,1}, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), nothing, init_values(x,  get_y(x), algorithm)...)
+    IB(pxy::Array{Float64,2}, β = 100, algorithm = "IB") = new(algorithm, β, get_px(pxy), get_py(pxy), pxy, get_py_x(pxy), nothing, init_values(pxy, algorithm)...)
+    IB(x::Array{String,1}, β = 100, algorithm = "IB") = new(algorithm, β, mapped_init_values(x, algorithm)...)
 end
 
 """
