@@ -6,20 +6,15 @@ The goal of this algorithm is to cluster categorical data while preserving predi
 To learn more about the information bottleneck you can look at [[1](https://arxiv.org/abs/1604.00268)] or [[2](https://doi.org/10.1080/09298215.2015.1036888)]
 
 ## Quick start
-To do a simple IB clustering of categorical, the first step is to map your categorical time-series to an array of **integer** 'x'. This can be done with the ```mapping``` function. For example, with toy data consisting of three categories 'a', 'b' and 'c':
+To do a simple IB clustering of categorical, the first step is to instantiate an ```IB``` model. Then optimize it via the ```IB_optimize!``` function to obtain to obtain the optimal parameters.
 ```
-data = ["a", "b", "c", "a", "c"]
-mapping(data)
->> [1, 2, 3, 1, 3]
-```
-Then instantiate a model and optimize it:
-```
-data = readdlm("/path/to/data/")
-x = mapping(data)
-model = IB(x) #you can call IB(x, beta). beta is a real number that controls the amount of compression.
+data = readdlm("/path/to/data/") 
+model = IB(data) #you can call IB(x, beta). beta is a real number that controls the amount of compression.
 IB_optimize!(model)
 ```
-Finally, to see the results:
+The data needs to be presented as a 1-D array, otherwise IB interprets it as a probability distribution (see below).
+
+To see the results, you can use:
 ```
 print_results(model)
 ```
