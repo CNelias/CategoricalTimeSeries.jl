@@ -45,7 +45,7 @@ The results are either formatted in a way that can be plotted directly with the 
 
 We now present the main functionalities provided by **CategoricalTimeSeries.jl**:
 #### Spectral analysis
-The spectral envelope method (@Stoffer1998) is used to study the power-spectrum of categorical time-series. 
+The spectral envelope method ([@Stoffer:1998]) is used to study the power-spectrum of categorical time-series. 
 As stated in the introduction, the power-spectrum of a time-series is not invariant under a generic transformation. 
 A wrong choice of mapping can potentially flatten certain peaks and render them unnoticeable.
 For each frequency, the spectral envelope seeks the mapping that maximizes the value of the power-spectrum normalized by the total variance.
@@ -65,7 +65,7 @@ cramer_coefficient(series, lags)
 #### Motif recognition
 Time-series can present repeating motifs that are worthwhile identifying. However, simple line-search algorithm are not adapted for all motifs (@Pevzner2000)
 Moreover, the lack of proper distance measurement complicates the saerch in the context of categorical time-series.  
-An implementation using the *random projection* method (@Buehler2002) is used here.
+An implementation using the *random projection* method ([@Buhler:2002]) is used here.
 The identification of potential motifs is done with the ```detect_motifs``` function.
 It takes as required input a time-series (1-D array), the length of the motifs to look for, and the number of allowed errors. 
 It returns an instance of the ```pattern``` structure which stores properties of the identified motif such as shapes, repetition number and positions.
@@ -73,7 +73,7 @@ It returns an instance of the ```pattern``` structure which stores properties of
 
 #### Data clustering.
 If certain categories inside a time-series present functional similarities, one might wish to clusther them together into a single equivalent representation.
-This reduces the total number of categories and can simplify the analysis of the time-series. To do this, we use an implementation based on the *Information bottleneck* concept (@Tishby2000, @Strouse2016).
+This reduces the total number of categories and can simplify the analysis of the time-series. To do this, we use an implementation based on the *Information bottleneck* concept ([@Tishby:2000], [@Strouse:2016]).
 After an initial bottleneck model of the structure ```IB``` is instantiated, it can be optimized with the ```IB_optimize!``` function to reveal potential clusters of categories. An overview of the results can be obtained with the ```print_results``` function. 
 
 # Acknowledgements
