@@ -34,7 +34,7 @@ The purpose of **CategoricalTimeSeries.jl** is to provide such tools. The packag
 
 # Statement of need
 
-While several implementations of categorical time-series analysis methods are accessible online, they are written in different languages, some of which are not free (e.g. Matlab). Additionally, no implementations for methods such as the *spectral envelope* of the *random projection* (see *Overview of functionalities* below) are available online. This package centralizes and implements most of the standard methods of categorical time-series analysis in a single toolbox fully written in the Julia language. 
+While several implementations of categorical time-series analysis methods are accessible online, they are written in different languages, some of which are not free (e.g. Matlab). Additionally, no implementations for methods such as the *spectral envelope* or the *random projection* (see *Overview of functionalities* below) are available online. This package centralizes and implements most of the standard methods of categorical time-series analysis in a single toolbox fully written in the Julia language. 
 
 
 # Overview of functionalities
