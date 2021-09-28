@@ -70,7 +70,7 @@ Returns a top and bottom limit of a 95% confidence interval at values of `lags`.
 > **Returns**: `(top_values, bottom_values)`, the top and bottom limit for the 95% CI, for each point in `lags`.
 
 ## Example
-Using the Pewee [birdsong data](https://github.com/johncwok/SerialDependence.jl/tree/master/test) (1943) one can do a serial dependence plot using Cohen's cofficient as follow :
+Using the Pewee [birdsong data](https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test) (1943) one can do a serial dependence plot using Cohen's cofficient as follow :
 ```
 using DelimitedFiles
 using SerialDependence
