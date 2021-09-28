@@ -45,7 +45,7 @@ Computes, for a given frequency `freq`, the optimal mappings for the categories 
 
 
 ## Example
-Applying the spectral envelope to study a [segment of DNA](https://github.com/johncwok/SpectralEnvelope.jl/tree/master/test) from the Epstein-Barr virus and plotting the results:
+Applying the spectral envelope to study a [segment of DNA](https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test) from the Epstein-Barr virus and plotting the results:
 ```
 using DelimitedFiles, Plots
 
