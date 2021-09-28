@@ -82,7 +82,7 @@ Plots all repetitions of an input `pattern` instance on top of the input time-se
 
 
 ## Example
-From Michael Brecker's improvisation over the piece ["confirmation"](https://github.com/johncwok/MotifRecognition.jl/tree/main/test), we extract a time-series of pitch intervals (difference from one note to the next).
+From Michael Brecker's improvisation over the piece ["confirmation"](https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test), we extract a time-series of pitch intervals (difference from one note to the next).
 A spectral envelope analysis reveals a peak at period 6~7, so we look for motifs of length 7 and allow for 1 error between them.
 After detection, we visualize the most frequent motif:
 ```
