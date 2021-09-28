@@ -18,7 +18,7 @@ When categorical data is layed out in function of time, one speaks of *categoric
 <br/>
 Often, especially when dealing with ordinal time-series, it is enough to map the different values to a set of integers to carry the analysis. However, when it is not sufficient **CategoricalTimeSeries.jl** is here to help.
 ## Overview
-The package lets you carry three main kind of analysis: **Spectral analysis**, **Data clustering** and **correlations analysis**. Other functionnalities are also avalaible (see misc.). Here is a quick overview of these methods, for more details go to the specific sections.
+The package lets you carry four main kind of analysis: **Spectral analysis**, **Data clustering**, **correlations analysis** and **motif recognition**. Other functionnalities are also avalaible (see misc.). These methods are agnostic to the type of data used (ordinal or nominal) as they do not rely on a pre-established ordering. Here is a quick overview of these methods, for more details go to the specific sections.
 #### Spectral analysis
 The standard approach to study spectral properties in categorical time-series is to map the different values to a set of numbers. While the overall shape of the spectrum is usually unaffected by this operation, peaks representing cyclic behaviors in the time-series can completely disappear depending on the choice of mapping. To tackle this issue, one can use the spectral envelope method. It was developed by *David S. Stoffer*  in order to identify optimal mappings.
 #### Data clustering
