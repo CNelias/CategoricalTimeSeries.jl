@@ -167,6 +167,26 @@ function init_values(pxy, algorithm = "IB")
 end
 
 """
+    mapping(input)
+
+Maps an input array of any type (string, float, any...) to an array of Int usable by the algorithm.
+The structure of the array is preserved as the mapping is one-to-one.
+"""
+function mapping(input)
+    categories = unique(input)
+    mapped_series = Int64[]
+    for value in input
+        for (idx, ctg) in enumerate(categories)
+            if ctg == value
+                push!(mapped_series, idx)
+            end
+        end
+    end
+    mappingDict = Dict(unique(mapped_series) .=> categories)
+    return mapped_series, mappingDict
+end
+
+"""
 Interface for IB clustering computation.
 Input data 'x' must be 1D. β controls the amount of clustering : the smaller the beta, the greater the clustering (and information loss).
 Can be initalized directly with the data via IB(x), or if you already have the histograms/probability of co-occurences of 'x' and 'y' via IB(pxy).
@@ -180,6 +200,7 @@ mutable struct IB
     py
     pxy
     py_x
+    colDict #dict from original value to mapped values. used for representation in print_results.
     qt_x
     qt
     qy_t
@@ -187,8 +208,22 @@ mutable struct IB
     IB(x::Array{Float64,1}, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), nothing, init_values(x,  get_y(x), algorithm)...)
     IB(x::Array{Any,1}, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), nothing, init_values(x,  get_y(x), algorithm)...)
     IB(x::Array{Int64,1}, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), nothing, init_values(x,  get_y(x), algorithm)...)
-    IB(pxy::Array{Float64,2}, β = 100, algorithm = "IB") = new(algorithm, β, get_px(pxy), get_py(pxy), pxy, get_py_x(pxy), nothing, init_values(pxy, algorithm)...)
+    IB(pxy::Array{Float64,2}, β = 100, algorithm = "IB") = new(algorithm, β, nothing, get_px(pxy), get_py(pxy), pxy, get_py_x(pxy), nothing, init_values(pxy, algorithm)...)
     IB(x::Array{String,1}, β = 100, algorithm = "IB") = new(algorithm, β, mapped_init_values(x, algorithm)...)
+end
+
+
+"""
+    Returns all initialization values for the IB struct in cases where input is not a real valued array.
+"""
+function mapped_init_values(input, algorithm)
+    mapped_x, mapping_dict = mapping(input)
+    px = get_px(mapped_x, get_y(mapped_x))
+    py = get_py(mapped_x, get_y(mapped_x))
+    pxy = get_pxy(mapped_x, get_y(mapped_x))
+    py_x = get_py_x(mapped_x, get_y(mapped_x))
+    qt_x, qt, qy_t = init_values(pxy, algorithm)
+    return (mapped_x, px, py, pxy, py_x, mapping_dict, qt_x, qt, qy_t)
 end
 
 """
@@ -455,15 +490,16 @@ end
     Helper function that puts all similar clusters next to each other for ease of readability.
 """
 function group_equivalent!(df)
-  for i = 1:size(df,2)-1
-    for j = i+1:size(df,2)
-      if df[!,i] == df[!,j]
-        idxs = collect(1:size(df,2))
-        idxs[j], idxs[i+1] = idxs[i+1], idxs[j]
-        permutecols!(df, idxs)
-      end
+    for i = 1:size(df,2)-1
+        for j = i+1:size(df,2)
+            if df[!,i] == df[!,j]
+                idxs = collect(1:size(df,2))
+                idxs[j], idxs[i+1] = idxs[i+1], idxs[j]
+                select!(df, idxs)
+                break
+            end
+        end
     end
-  end
 end
 
 """
@@ -480,17 +516,17 @@ a single cluster to this category for the chosen β value. You might try a diffe
 """
 function print_results(m::IB, disp_thres = 0.1)
     if ~isnothing(m.x)
-        df = DataFrame(model.qt_x .> disp_thres, Symbol.(sort(unique(m.x))))
+        df = isnothing(m.colDict) ? DataFrame(m.qt_x .> disp_thres, Symbol.(sort(unique(m.x)))) : DataFrame(m.qt_x .> disp_thres, [Symbol.(m.colDict[i]) for i in sort(unique(m.x))])
         group_equivalent!(df)
-        display(df)
+        display(convert.(Int,df))
     else
         @warn "Initial data is probability distribution, categories will be displayed as x1, x2 ..., xn."
-        df = DataFrame(model.qt_x .> disp_thres)
+        df = DataFrame(m.qt_x .> disp_thres)
         group_equivalent!(df)
-        display(df)
+        display(convert.(Int,df))
     end
 end
 
-export IB, search_optima!, brute_optimize!, IB_optimize!, calc_metrics, get_IB_curve, get_y, print_results
+export IB, search_optima!, brute_optimize!, IB_optimize!, calc_metrics, get_IB_curve, get_y, print_results, mapping
 
 end
