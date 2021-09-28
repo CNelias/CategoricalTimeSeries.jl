@@ -129,7 +129,7 @@ Scans the IB plane with various values of beta to get the optimal curve in the I
 
 ## Examples
 - - -
-Here is a concrete example with data from [Bach chorales](https://github.com/johncwok/IntegerIB.jl/tree/master/data). The input categories are the 7 types of diatonic chords described in classical music theory. In this case, the data (input series and context) have already been compiled into a co-occurence table, so we instantiate the IB model with a probability distribution:
+Here is a concrete example with data from [Bach chorales](https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test). The input categories are the 7 types of diatonic chords described in classical music theory. In this case, the data (input series and context) have already been compiled into a co-occurence table, so we instantiate the IB model with a probability distribution:
 ```
 bach = CSV.read("..\\data\\bach_histogram")
 pxy = Matrix(bach)./sum(Matrix(bach)) #normalizing the co-occurence table to have probabilities.
