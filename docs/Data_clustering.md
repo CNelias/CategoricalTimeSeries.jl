@@ -130,31 +130,36 @@ Scans the IB plane with various values of beta to get the optimal curve in the I
 ## Examples
 - - -
 Here is a concrete example with data from [Bach chorales](https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test). The input categories are the 7 types of diatonic chords described in classical music theory. In this case, the data (input series and context) have already been compiled into a co-occurence table, so we instantiate the IB model with a probability distribution:
+
 ```
-bach = CSV.read("..\\data\\bach_histogram")
+bach = DataFrame(CSV.File("..\\test\\bach_histogram"))
 pxy = Matrix(bach)./sum(Matrix(bach)) #normalizing the co-occurence table to have probabilities.
 model = IB(pxy, 1000) #instantiating the model with co-occurence probabilities.
 IB_optimize!(model)
 print_results(model)
 ```
+
 The output is in accordance with western music theory. It tells us that we can group category 1, 3 and 6 together: this corresponds to the *tonic* function in classical harmony. Category 2 and 4 have been clustered together, this is what harmony calls *subdominant*. Finally category 5 and 7 are joined : this is the *dominant* function.
 
 <img src=https://user-images.githubusercontent.com/34754896/90241511-7c625300-de2b-11ea-800d-3cee1da9fdf5.PNG width = "400">
+
 - - -
 In the next example, we instantiate the model with a time-series ([saxophone solo](https://github.com/johncwok/IntegerIB.jl/tree/master/data)) and define our own context.
+
 ```
-data = CSV.read("..\\data\\coltrane") #time-series of notes from saxophone solo (John Coltrane).
+data = DataFrame(CSV.File("..\\test\\coltrane_afro_blue"))[!,1]  #time-series of notes from saxophone solo (John Coltrane).
 context = get_y(data, "an") # "an" stands for adjacent neighbors.
 model = IB(data, context, 500) # giving the context as input during instantiation.
 IB_optimize!(model)
 ```
 - - -
 Now, we show how to plot the IB curve:
+
 ```
 using Plots
-bach = CSV.read("..\\data\\bach_histogram")
-pxy = Matrix(bach)./sum(Matrix(bach))
-model = IB(pxy, 1000)
+bach = DataFrame(CSV.File("..\\test\\bach_histogram"))
+pxy = Matrix(bach)./sum(Matrix(bach)) #normalizing the co-occurence table to have probabilities.
+model = IB(pxy, 1000) #instantiating the model with co-occurence probabilities.
 x, y = get_IB_curve(model)
 a = plot(x, y, color = "black", linewidth = 2, label = "Optimal IB curve", title = "Optimal IB curve \n Bach's chorale dataset")
 scatter!(a, x, y, color = "black", markersize = 1.7, xlabel = "I(X;T) \n", ylabel = "- \n I(Y;T)", label = "", legend = :topleft)
