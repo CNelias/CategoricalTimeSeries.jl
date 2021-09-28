@@ -137,7 +137,7 @@ function get_qt_x_init(px, algorithm)
         end
         return replace_zeros(qt_x_init)
     else
-        throw("Algorithm must be \"IB\" pr \"DIB\"")
+        throw("Algorithm must be 'IB' or 'DIB', but $algorithm was given.")
     end
 end
 
@@ -204,12 +204,13 @@ mutable struct IB
     qt_x
     qt
     qy_t
-    IB(x, y, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x,y), get_py(x,y), get_pxy(x,y), get_py_x(x,y), nothing, init_values(x, y, algorithm)...)
-    IB(x::Array{Float64,1}, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), nothing, init_values(x,  get_y(x), algorithm)...)
-    IB(x::Array{Any,1}, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), nothing, init_values(x,  get_y(x), algorithm)...)
-    IB(x::Array{Int64,1}, β = 100, algorithm = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), nothing, init_values(x,  get_y(x), algorithm)...)
-    IB(pxy::Array{Float64,2}, β = 100, algorithm = "IB") = new(algorithm, β, nothing, get_px(pxy), get_py(pxy), pxy, get_py_x(pxy), nothing, init_values(pxy, algorithm)...)
-    IB(x::Array{String,1}, β = 100, algorithm = "IB") = new(algorithm, β, mapped_init_values(x, algorithm)...)
+
+    IB(x, y, β = 100, algorithm::String = "IB") = new(algorithm, β, x, get_px(x,y), get_py(x,y), get_pxy(x,y), get_py_x(x,y), nothing, init_values(x, y, algorithm)...)
+    IB(x::Array{Float64,1}, β = 100, algorithm::String = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), nothing, init_values(x,  get_y(x), algorithm)...)
+    IB(x::Array{Any,1}, β = 100, algorithm::String = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), nothing, init_values(x,  get_y(x), algorithm)...)
+    IB(x::Array{Int64,1}, β = 100, algorithm::String = "IB") = new(algorithm, β, x, get_px(x, get_y(x)), get_py(x, get_y(x)), get_pxy(x, get_y(x)), get_py_x(x, get_y(x)), nothing, init_values(x,  get_y(x), algorithm)...)
+    IB(pxy::Array{Float64,2}, β = 100, algorithm::String = "IB") = new(algorithm, β, nothing, get_px(pxy), get_py(pxy), pxy, get_py_x(pxy), nothing, init_values(pxy, algorithm)...)
+    IB(x::Array{String,1}, β = 100, algorithm::String = "IB") = new(algorithm, β, mapped_init_values(x, algorithm)...)
 end
 
 
@@ -521,7 +522,7 @@ function print_results(m::IB, disp_thres = 0.1)
         display(convert.(Int,df))
     else
         @warn "Initial data is probability distribution, categories will be displayed as x1, x2 ..., xn."
-        df = DataFrame(m.qt_x .> disp_thres)
+        df = DataFrame(m.qt_x .> disp_thres, :auto)
         group_equivalent!(df)
         display(convert.(Int,df))
     end
