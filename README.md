@@ -1,7 +1,7 @@
 # CategoricalTimeSeries.jl
 
 
-| **Documentation** | **Appveyor** |
+| **Documentation**| **Appveyor** |
 |:---------------:|:---------------:|
 |[![Documentation Status](https://readthedocs.org/projects/categoricaltimeseriesjl/badge/?version=latest)](https://categoricaltimeseriesjl.readthedocs.io/en/latest/?badge=latest)| [![Build status](https://ci.appveyor.com/api/projects/status/ik7hvhu73kpvpr0r?svg=true)](https://ci.appveyor.com/project/johncwok/categoricaltimeseries-jl)| 
 
