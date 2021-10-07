@@ -133,6 +133,7 @@ Here is a concrete example with data from [Bach chorales](https://github.com/joh
 
 ```
 using CategoricalTimeSeries
+using CSV
 
 data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "bach_histogram")
 bach = DataFrame(CSV.File(data_path))
@@ -151,6 +152,7 @@ In the next example, we instantiate the model with a time-series ([saxophone sol
 
 ```
 using CategoricalTimeSeries
+using CSV
 
 data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "coltrane_afro_blue")
 data = DataFrame(CSV.File(data_path))[!,1]  #time-series of notes from saxophone solo (John Coltrane).
@@ -162,7 +164,7 @@ IB_optimize!(model)
 Now, we show how to plot the IB curve:
 
 ```
-using Plots
+using Plots, CSV
 using CategoricalTimeSeries
 
 data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "bach_histogram")
