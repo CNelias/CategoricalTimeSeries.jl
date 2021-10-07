@@ -5,7 +5,8 @@ using CategoricalTimeSeries
 #testing the serial dependences functions by reproducing the results from C. Weiss's book "An Introduction to Discrete-Valued Time Series".
 #I was not able to get my hands the full time-series, C. weiss says it is ~1300 elements long, which explains the slight numerical differences in values.
 @testset "AssociationMeasurement" begin
-  pewee = Int64.(readdlm("pewee.txt", ',')[1,:])
+  pewee_path = joinpath(dirname(pathof(CategoricalTimeSeries)), "test", "pewee.txt")
+  pewee = Int64.(readdlm(pewee_path, ',')[1,:])
   @test round(cramer_coefficient(pewee, Int64(4))[1], digits = 2) == 0.46
   @test round(cohen_coefficient(pewee, Int64(4))[1], digits = 2) == 0.55
   #this one was not in the book, but the plot correctly reproduces the results.
@@ -15,6 +16,7 @@ end
 
 @testset "SpectralEnvelope" begin
   #testing spectral envelope method by reproducing David's stoffer results.
+  DNA_path = joinpath(dirname(pathof(CategoricalTimeSeries)), "test", "DNA_data.txt")
   DNA = readdlm("DNA_data.txt", ',')[1,:]
   x,y,e = spectral_envelope(DNA; m=0)
   @test round(spectral_envelope(DNA)[2][5]; digits = 3) == round(0.175; digits = 3)
@@ -37,6 +39,7 @@ end
 
 #testing motif recognition
 @testset "MotifRecognition" begin
+  confirmation_path = joinpath(dirname(pathof(CategoricalTimeSeries)), "test", "confirmation")
   data = readdlm("confirmation")
   pitch = mod.(data, 12)
   intervals = pitch[2:end] .- pitch[1:end-1]
