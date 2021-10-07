@@ -132,7 +132,10 @@ Scans the IB plane with various values of beta to get the optimal curve in the I
 Here is a concrete example with data from [Bach chorales](https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test). The input categories are the 7 types of diatonic chords described in classical music theory. In this case, the data (input series and context) have already been compiled into a co-occurence table, so we instantiate the IB model with a probability distribution:
 
 ```
-bach = DataFrame(CSV.File("..\\test\\bach_histogram"))
+using CategoricalTimeSeries
+
+data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "bach_histogram")
+bach = DataFrame(CSV.File(data_path))
 pxy = Matrix(bach)./sum(Matrix(bach)) #normalizing the co-occurence table to have probabilities.
 model = IB(pxy, 1000) #instantiating the model with co-occurence probabilities.
 IB_optimize!(model)
@@ -147,7 +150,10 @@ The output is in accordance with western music theory. It tells us that we can g
 In the next example, we instantiate the model with a time-series ([saxophone solo](https://github.com/johncwok/IntegerIB.jl/tree/master/data)) and define our own context.
 
 ```
-data = DataFrame(CSV.File("..\\test\\coltrane_afro_blue"))[!,1]  #time-series of notes from saxophone solo (John Coltrane).
+using CategoricalTimeSeries
+
+data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "coltrane_afro_blue")
+data = DataFrame(CSV.File(data_path))[!,1]  #time-series of notes from saxophone solo (John Coltrane).
 context = get_y(data, "an") # "an" stands for adjacent neighbors.
 model = IB(data, context, 500) # giving the context as input during instantiation.
 IB_optimize!(model)
@@ -157,7 +163,10 @@ Now, we show how to plot the IB curve:
 
 ```
 using Plots
-bach = DataFrame(CSV.File("..\\test\\bach_histogram"))
+using CategoricalTimeSeries
+
+data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "bach_histogram")
+bach = DataFrame(CSV.File(data_path))
 pxy = Matrix(bach)./sum(Matrix(bach)) #normalizing the co-occurence table to have probabilities.
 model = IB(pxy, 1000) #instantiating the model with co-occurence probabilities.
 x, y = get_IB_curve(model)
