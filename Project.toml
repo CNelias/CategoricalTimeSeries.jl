@@ -23,7 +23,7 @@ test = ["Test"]
 
 [compat]
 julia = "^1.0"
-Plots = "^1.0"
+Plots = "^0.20"
 Combinatorics = "^1.0.2"
 Distributions = "^0.25.16"
 SpectralEnvelope = "^1.0"
