@@ -48,8 +48,9 @@ Computes, for a given frequency `freq`, the optimal mappings for the categories 
 Applying the spectral envelope to study a [segment of DNA](https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test) from the Epstein-Barr virus and plotting the results:
 ```
 using DelimitedFiles, Plots
+using CategoricalTimeSeries
 
-data = readdlm("..\\test\\DNA_data.txt")
+data = readdlm(joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "DNA_data.txt"))
 f, se, eigvecs = spectral_envelope(data; m = 4)
 
 plot(f, se, xlabel = "Frequency", ylabel = "Intensity", title = "test data: extract of Epstein virus DNA", label = "spectral envelope")
