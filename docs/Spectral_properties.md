@@ -51,7 +51,7 @@ using DelimitedFiles, Plots
 using CategoricalTimeSeries
 
 data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "DNA_data.txt")
-data = readdlm(data_path)
+data = readdlm(data_path, ',')
 f, se, eigvecs = spectral_envelope(data; m = 4)
 
 plot(f, se, xlabel = "Frequency", ylabel = "Intensity", title = "test data: extract of Epstein virus DNA", label = "spectral envelope")
