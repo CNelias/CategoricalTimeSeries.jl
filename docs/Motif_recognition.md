@@ -87,8 +87,10 @@ A spectral envelope analysis reveals a peak at period 6~7, so we look for motifs
 After detection, we visualize the most frequent motif:
 ```
 using DelimitedFiles
+using CategoricalTimeSeries
 
-data = readdlm("..\\test\\confirmation")
+data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "confirmation")
+data = readdlm(data_path)
 pitch = mod.(data, 12) #Removing octave position: not needed
 intervals = pitch[2:end] .- pitch[1:end-1] #getting interval time-series.
 m = detect_motifs(intervals, 7, 1; iters = 700, tolerance = 0.7)
