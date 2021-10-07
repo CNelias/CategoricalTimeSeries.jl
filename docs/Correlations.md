@@ -72,11 +72,12 @@ Returns a top and bottom limit of a 95% confidence interval at values of `lags`.
 ## Example
 Using the Pewee [birdsong data](https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test) (1943) one can do a serial dependence plot using Cohen's cofficient as follow :
 ```
-using DelimitedFiles
+using DelimitedFiles, Plots
 using CategoricalTimeSeries
-using Plots
+
 #reading 'pewee' time-series test folder.
-series = readdlm("test\\pewee.txt",',')[1,:]
+data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "pewee.txt")
+series = readdlm(data_path,',')[1,:]
 lags = collect(1:25)
 v = cohen_coefficient(series, lags)
 t, b = bootstrap_CI(series, cramer_coefficient, lags)
