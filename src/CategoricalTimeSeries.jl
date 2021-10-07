@@ -1,8 +1,8 @@
 module CategoricalTimeSeries
 
-using IntegerIB
-using SerialDependence
-using SpectralEnvelope
+include("IntegerIB.jl")
+include("SerialDependence.jl")
+include("SpectralEnvelope.jl")
 include("MotifRecognition.jl")
 
 export IB, search_optima!, brute_optimize!, IB_optimize!, calc_metrics, get_IB_curve, get_y, print_results
