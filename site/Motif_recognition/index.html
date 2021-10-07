@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Motif recognition - CategoricalTimeSeries.jl</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Motif recognition";
+    var mkdocs_page_input_path = "Motif_recognition.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> CategoricalTimeSeries.jl</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Correlations/">Correlations</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Spectral_properties/">Spectral properties</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Data_clustering/">Data clustering</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Motif recognition</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#main-functions">Main functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#plotting">Plotting</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example">Example</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../misc/">Miscellaneous</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">CategoricalTimeSeries.jl</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Motif recognition</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="motif-recognition">Motif recognition</h1>
+<p>Time-series sometimes present <strong>repeating motifs</strong> (or patterns) that are worthwhile identifying. The detection of such motifs can be difficult depending on the amount of noise in the time-series. <br/></p>
+<p>In the case of categorical time-series, the lack of proper metric to measure distance between motifs can make their detection tricky. Improper distances like the number of differences between the two motifs is commonly used.</p>
+<p>This package proposes a detection algorithm based on JEREMY BUHLER and MARTIN TOMPA's paper "<em>Finding Motifs Using Random Projections</em>". This algorithm although very precise is not exact. Therefore, when you are done detecting potential motifs with the <code>detect_motifs</code> function, you can refine your results with <code>find_motifs</code> for an exact search.
+<br/> The main functions return instances of a class called <strong>pattern</strong>:</p>
+<hr />
+<p><strong>pattern — Class</strong></p>
+<hr />
+<p>A class storing useful information about found motifs in a time-series. An array of <code>pattern</code> instances is returned when the searching algorithm is done running.</p>
+<blockquote>
+<p><strong>Attributes</strong>:</p>
+</blockquote>
+<ul>
+<li><strong>shape</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Any,1}</a>): Array containing the shape (or contour) of the first found repetition of the motif.</li>
+<li><strong>repetitions</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Array{Any,1},1}</a>): all the different shapes from the motif's repetitions, they can vary a bit from one to the next.</li>
+<li><strong>positions</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Int,1}</a>): the positions at which the different repetitions of the motif were found.</li>
+</ul>
+<h2 id="main-functions">Main functions</h2>
+<hr />
+<p><strong>detect_motifs — Function</strong></p>
+<hr />
+<pre><code class="language-Julia">detect_motifs(ts, w, d, t = w - d; iters = 1000, tolerance = 0.95)
+</code></pre>
+<p>Detects all motifs of length 'w' occuring more often than chance, being identical to each other up to 'd' differences inside of imput time-series 'ts'.
+Returns an array of <code>pattern</code>, inside of which the patterns are classified by how frequently they are observed. The first elements is therefore the most frequently observed motif, and so on.</p>
+<blockquote>
+<p><strong>Parameters</strong>:</p>
+<blockquote>
+<ul>
+<li><strong>ts</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Any,1}</a>): input time-series in which motifs are searched for.</li>
+<li><strong>w</strong> (<a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/">Int</a>): length of motifs to look for.</li>
+<li><strong>d</strong> (<a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/">Int</a>): allowed errors (differences) between motifs repetitions.</li>
+<li><strong>t = w - d</strong> (<a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/">Int</a>): size of the masks to use for random projection in the detection (defaults to w - d).</li>
+<li><strong>iters = 1000</strong> (<a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/">Int</a>): the numbers of iterations for the random projection process (defaults to 1000)</li>
+<li><strong>tolerance = 0.95</strong> (<a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/">Float</a>): threshold of motif identification. If set to 1, only matrix entries that are strictly superior to the (probabilistic) threshold are taken into account. Defaults to 0.7, meaning that matrix entries need to be bigger than 0.7*threshold.</li>
+</ul>
+</blockquote>
+<p><strong>Returns</strong> :</p>
+<blockquote>
+<ul>
+<li><strong>motifs</strong> : list of <code>pattern</code> instances sorted by frequency of occurence. motifs[1] is therefore the most frequent motif, motifs[2] the second most observed and so on.</li>
+</ul>
+</blockquote>
+</blockquote>
+<hr />
+<p><strong>find_motifs — Function</strong></p>
+<hr />
+<pre><code class="language-Julia">find_motifs(ts, shape, d)
+</code></pre>
+<p>Given a motif of shape 'shape' (array{any,1}), looks for all the repetitions of it which differ only up to 'd' differences inside of the input time-series 'ts'.
+Input:</p>
+<blockquote>
+<p><strong>Parameters</strong>:</p>
+<blockquote>
+<ul>
+<li><strong>ts</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Any,1}</a>) : time-series in which to look for motifs</li>
+<li><strong>shape</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Any,1}</a>): shape (aray{any,1}) of the motif to look for.</li>
+<li><strong>d</strong> (<a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/">Int</a>): allowed errors (differences) between motifs</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>Returns</strong> :</li>
+</ul>
+<blockquote>
+<ul>
+<li><strong>motif</strong> : an instance of <code>pattern</code> containing the found repetition of the input 'shape'.</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="plotting">Plotting</h2>
+<p>To help visualize results, two simple plotting functions are provided.</p>
+<hr />
+<p><strong>plot_motif — Function</strong></p>
+<hr />
+<pre><code class="language-Julia">plot_motif(m::pattern)
+</code></pre>
+<p>Plots all repetitions of an input <code>pattern</code> instance on top of each other to see how similar they are to each other.</p>
+<blockquote>
+<p><strong>Parameters</strong>:</p>
+<blockquote>
+<ul>
+<li><strong>m</strong> : Instance of the <code>pattern</code> class</li>
+</ul>
+</blockquote>
+</blockquote>
+<hr />
+<p><strong>plot_motif — Function</strong></p>
+<hr />
+<pre><code class="language-Julia">plot_motif(m::pattern, ts)
+</code></pre>
+<p>Plots all repetitions of an input <code>pattern</code> instance on top of the input time-series 'ts' to better visualize their repartition in time.</p>
+<blockquote>
+<p><strong>Parameters</strong>:</p>
+<blockquote>
+<ul>
+<li><strong>m</strong> : Instance of the <code>pattern</code> class</li>
+<li><strong>ts</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Any,1}</a>): Input time-series</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="example">Example</h2>
+<p>From Michael Brecker's improvisation over the piece <a href="https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test">"confirmation"</a>, we extract a time-series of pitch intervals (difference from one note to the next).
+A spectral envelope analysis reveals a peak at period 6~7, so we look for motifs of length 7 and allow for 1 error between them.
+After detection, we visualize the most frequent motif:</p>
+<pre><code>using DelimitedFiles
+using CategoricalTimeSeries
+
+data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), &quot;test&quot;, &quot;confirmation&quot;)
+data = readdlm(data_path)
+pitch = mod.(data, 12) #Removing octave position: not needed
+intervals = pitch[2:end] .- pitch[1:end-1] #getting interval time-series.
+m = detect_motifs(intervals, 7, 1; iters = 700, tolerance = 0.7)
+plot_motif(m[1]) #plotting most frequent motif
+</code></pre>
+<p><img src=https://user-images.githubusercontent.com/34754896/104308882-9c2c9e80-54d1-11eb-8882-cc31b7b2af8b.PNG width = "500"></p>
+<p>We notice that the motif <code>[-1, -2, 10, -10, 2, 3, 5]</code> seems to be the underlying (consensus) shape. In musical notation, this motif would look like this (written in C major):
+<img src=https://user-images.githubusercontent.com/34754896/104315350-1ca3cd00-54db-11eb-864d-3a1da9d5efeb.PNG width = "500"></p>
+<p>We do an exact search with 1 error allowed to check if our previous detection missed any repetitions, and plot the found motif on top of each other:</p>
+<pre><code>consensus_shape = [-1, -2, 10, -10, 2, 3, 5]
+motif = find_motifs(data, consensus_shape, 1)
+plot_motif(motif)
+</code></pre>
+<p><img src=https://user-images.githubusercontent.com/34754896/104308882-9c2c9e80-54d1-11eb-8882-cc31b7b2af8b.PNG width = "500"></p>
+<p>Here, we obtain the same plot as before but this is not necessarily always the case. Knowing the consensus motif usually allows to find its repetitions more efficiently.</p>
+<p>Now, we visualize the repetitions of the motif in the time-series:</p>
+<pre><code>plot_motif(motif, ts)
+</code></pre>
+<p><img src=https://user-images.githubusercontent.com/34754896/104313663-a1411c00-54d8-11eb-9854-70bd5ed9ba2f.PNG width = "600"></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../misc/" class="btn btn-neutral float-right" title="Miscellaneous">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Data_clustering/" class="btn btn-neutral" title="Data clustering"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/johncwok/CategoricalTimeSeries.jl.git" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../Data_clustering/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../misc/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

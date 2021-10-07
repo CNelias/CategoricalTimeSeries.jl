@@ -9,25 +9,24 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Intus terrae - CategoricalTimeSeries.jl</title>
+  <title>Correlations - CategoricalTimeSeries.jl</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
   <link rel="stylesheet" href="../css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Intus terrae";
+    var mkdocs_page_name = "Correlations";
     var mkdocs_page_input_path = "Correlations.md";
     var mkdocs_page_url = null;
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
   <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
-  
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -41,7 +40,7 @@
         <a href=".." class="icon icon-home"> CategoricalTimeSeries.jl</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
@@ -51,20 +50,32 @@
                     <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="" href="../correlations.md">Correlations</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Correlations</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#main-functions">Main functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#confidence-interval">Confidence interval</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example">Example</a>
+    </li>
+    </ul>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../spectral_properties.md">Spectral properties</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Spectral_properties/">Spectral properties</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../data_clustering.md">Data clustering</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Data_clustering/">Data clustering</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../misc/">Misc.</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Motif_recognition/">Motif recognition</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../misc/">Miscellaneous</a>
                     </li>
                 </ul>
       </div>
@@ -88,7 +99,7 @@
     
       
     
-    <li>Intus terrae</li>
+    <li>Correlations</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -96,53 +107,115 @@
   
   <hr/>
 </div>
+
           <div role="main">
             <div class="section">
               
-                <h1 id="intus-terrae">Intus terrae</h1>
-<h2 id="habent-est-corpore-nec-victa">Habent est corpore nec victa</h2>
-<p>Lorem markdownum concitat terram patruus haec caeruleam heres indignanda Phoci!
-Ad potes facinus, in trux laborant mansit; nec saxo; divitior non redeuntem
-caelum, da.</p>
-<ol>
-<li>Reppulit Semeles Calydonida noxa</li>
-<li>Patre corpore teneras</li>
-<li>Deus quae discussit putas</li>
-<li>Corpore spe Musa crura</li>
-<li>Inque facinus</li>
-</ol>
-<h2 id="ab-opto">Ab opto</h2>
-<p>Aere humanis, in animal iterabat et disces clausa vultus minimum fibra; sine
-Nesso, ita. Nosces dixit. Nec viso tacetve dotem volentem duos vestri, et, sono
-aperti rector terrae mutantur montibus <strong>exsereret</strong>. At nisi haerenti illuc et
-gerebat avitis adfecit et a insigne iuncti moram est circuit fecit quas tecta,
-vulnere! Eodem pectore ille purpureum sceptro semianimes obscuram Phryges.</p>
-<ol>
-<li>Me vero deus</li>
-<li>Mentes vento et amplexu inductas verba est</li>
-<li>Blanditiis ad sub abstuleris tulit aggere esset</li>
-<li>Stillanti Meleagron eversae relicta isdem omnes</li>
-</ol>
-<h2 id="mittit-habuisse-omnes">Mittit habuisse omnes</h2>
-<p>Ego omnes, diu <a href="http://est.net/me">procedit notavi</a>? Quo sola corque tanto
-<em>sanguis telas deserti</em> me partem, nisi, minus moriensque ficta
-<a href="http://undis-ignota.net/">maestus</a> deus pars! Dixit et ut tumulos Caenea
-meruisse in gerit <strong>nostris</strong> sitim paratus validum si sed aethere.</p>
-<h2 id="et-fontes">Et fontes</h2>
-<p>Idaei a neque fatebor trepidoque albentia Lycaei et parent proculcat exsangue
-successibus torus flumine respersit tollens <strong>fertur</strong>. Nebulas signataque quae
-infectaque inclusum cuius, ducebas imagine telum.</p>
-<ol>
-<li>Restagnantis Venerem rapere pereuntem nostris moenia et</li>
-<li>Dubites clamavit</li>
-<li>Ore senecta sensit in te illi conferat</li>
-</ol>
-<p>Eosdem nomen virum plangore succedere Lynceus portabat terreno. Sua inde
-<strong>maestis fassusque concepta</strong> scabrae restat, sed imperat nam Aeneadae!</p>
+                <h1 id="correlations">Correlations</h1>
+<p>The study of categorical data prevents the usage of standard tools like the autocorrelation function, as they are often not defined. The following functions provide ways to study categorical serial dependences.<br />
+Most of these methods are described in C. Weiss's book "<em>An Introduction to Discrete-Valued Time Series</em>" (2018)[1].</p>
+<h2 id="main-functions">Main functions</h2>
+<hr />
+<p><strong>cramer_coefficient — Function</strong></p>
+<hr />
+<pre><code class="language-Julia">cramer_coefficient(series, lags)
+</code></pre>
+<p>Measures average association between elements of <code>series</code> at time t and time t + <code>lags</code>. Cramer's V is an unsigned measurement : its values lies in [0,1], 0 being perfect independence and 1 perfect dependence. k can be biased, for more informations, refer to [1].</p>
+<blockquote>
+<p><strong>Parameters</strong>:</p>
+<blockquote>
+<ul>
+<li><strong>series</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Any,1}</a>): 1-D Array containing input categorical time-series.</li>
+<li><strong>lags</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Int,1}</a>): lag values at which cramer's coefficient is computed. Alternatively, <code>lags</code> can be an integer, a single integer value will then be returned.  </li>
+</ul>
+</blockquote>
+<p><strong>Returns</strong>: <code>V</code>, the value of cramer's coefficient for each value in <code>lags</code>.</p>
+</blockquote>
+<hr />
+<p><strong>cohen_coefficient — Function</strong></p>
+<hr />
+<pre><code class="language-Julia">cohen_coefficient(series, lags)
+</code></pre>
+<p>Measures average association between elements of <code>series</code> at time t and time t + <code>lags</code>.
+Cohen's k is a signed measurement : its values lie in [-pe/(1 -pe), 1], with positive (negative) values indicating positive (negative) serial dependence at <code>lags</code>. pe is probability of agreement by chance.</p>
+<blockquote>
+<p><strong>Parameters</strong>:</p>
+<blockquote>
+<ul>
+<li><strong>series</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Any,1}</a>): 1-D Array containing input categorical time-series.</li>
+<li><strong>lags</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Int,1}</a>): lag values at which Cohen's coefficient is computed. Alternatively, <code>lags</code> can be an integer, a single integer value will then be returned.  </li>
+</ul>
+</blockquote>
+<p><strong>Returns</strong>: <code>K</code>, the value of Cohen's coefficient for each value in <code>lags</code>.</p>
+</blockquote>
+<hr />
+<p><strong>theils_u — Function</strong></p>
+<hr />
+<pre><code class="language-Julia">theils_u(series, Lags)
+</code></pre>
+<p>Measures average portion of information known about <code>series</code> at t + <code>lags</code> given that <code>series</code> is known at time t. Theil's U makes use of concepts borrowed from <em>information theory</em>
+U is an unsigned measurement: its values lies in [0,1], 0 meaning no information shared and 1 complete knowledge (determinism).</p>
+<blockquote>
+<p><strong>Parameters</strong>:</p>
+<blockquote>
+<ul>
+<li><strong>series</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Any,1}</a>): 1-D Array containing input categorical time-series.</li>
+<li><strong>lags</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Int,1}</a>): lag values at which Theil's U is computed. Alternatively, <code>lags</code> can be an integer, a single integer value will then be returned.  </li>
+</ul>
+</blockquote>
+<p><strong>Returns</strong>: <code>U</code>, the value of Theil's U for each value in <code>lags</code>.</p>
+</blockquote>
+<h2 id="confidence-interval">Confidence interval</h2>
+<p>Depending on the length of the time-series and the method used, the estimated value of serial dependence might fluctuate a lot around its true value.
+It is therefore useful to relate estimations to a corresponding confidence interval to know how significant given results are. The following function provides a confidence interval via bootstrap:</p>
+<hr />
+<p><strong>bootstrap_CI — Function</strong></p>
+<hr />
+<pre><code class="language-Julia">bootstrap_CI(series, lags, coef_func, n_iter = 1000)
+</code></pre>
+<p>Returns a top and bottom limit of a 95% confidence interval at values of <code>lags</code>. The returned confidence interval corresponds to the null hypothesis (no serial dependence), if the estimated serial dependence lies in this interval, no significant correlations can be claimed.</p>
+<blockquote>
+<p><strong>Parameters</strong>:</p>
+<blockquote>
+<ul>
+<li><strong>series</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Any,1}</a>): 1-D Array containing input categorical time-series.</li>
+<li><strong>lags</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Int,1}</a>): lag values at which the CI is computed.</li>
+<li><strong>coef_func</strong> (<a href="https://docs.julialang.org/en/v1/manual/functions/">function</a>): the function for which the CI needs to be computed.
+            <code>coef_func</code> can be one of the following <strong>functions</strong> : <code>cramer_coefficient</code>, <code>cohen_coefficient</code> or <code>theils_U</code>.</li>
+<li><strong>n_iter</strong> (<a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/">Int</a>): number of iterations for the bootstrap procedure. The higher, the more precise but more computationaly demanding. Defaults to 1000.</li>
+</ul>
+</blockquote>
+<p><strong>Returns</strong>: <code>(top_values, bottom_values)</code>, the top and bottom limit for the 95% CI, for each point in <code>lags</code>.</p>
+</blockquote>
+<h2 id="example">Example</h2>
+<p>Using the Pewee <a href="https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test">birdsong data</a> (1943) one can do a serial dependence plot using Cohen's cofficient as follow :</p>
+<pre><code>using DelimitedFiles, Plots
+using CategoricalTimeSeries
+
+#reading 'pewee' time-series test folder.
+data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), &quot;test&quot;, &quot;pewee.txt&quot;)
+series = readdlm(data_path,',')[1,:]
+lags = collect(1:25)
+v = cohen_coefficient(series, lags)
+t, b = bootstrap_CI(series, cramer_coefficient, lags)
+a = plot(lags, v, xlabel = &quot;Lags&quot;, ylabel = &quot;K&quot;, label = &quot;Cramer's k&quot;)
+plot!(a, lags, t, color = &quot;red&quot;, label = &quot;Limits of 95% CI&quot;); plot!(a, lags, b, color = &quot;red&quot;, label = &quot;&quot;)
+</code></pre>
+<p><img src=https://user-images.githubusercontent.com/34754896/90892617-de87fe80-e3bd-11ea-8f0e-f2e4d77959f2.PNG width = "600"></p>
+<p>[1] DOI : 10.1002/9781119097013</p>
               
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Spectral_properties/" class="btn btn-neutral float-right" title="Spectral properties">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -163,13 +236,22 @@ infectaque inclusum cuius, ducebas imagine telum.</p>
   </div>
 
   <div class="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-      
-      
-    </span>
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/johncwok/CategoricalTimeSeries.jl.git" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Spectral_properties/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
 </div>
     <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
     <script src="../js/theme.js" defer></script>
       <script src="../search/main.js" defer></script>
     <script defer>

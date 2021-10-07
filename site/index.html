@@ -14,7 +14,7 @@
 
   <link rel="stylesheet" href="css/theme.css" />
   <link rel="stylesheet" href="css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
   
   <script>
     // Current page data
@@ -25,9 +25,8 @@
   
   <script src="js/jquery-2.1.1.min.js" defer></script>
   <script src="js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
-  
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -41,7 +40,7 @@
         <a href="." class="icon icon-home"> CategoricalTimeSeries.jl</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
@@ -58,9 +57,9 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#data-clustering">Data clustering</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#correlation-analysis">Correlation analysis</a>
+    <li class="toctree-l3"><a class="reference internal" href="#motif-recognition">Motif recognition</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#misc">Misc.</a>
+    <li class="toctree-l3"><a class="reference internal" href="#correlation-analysis">Correlation analysis</a>
     </li>
         </ul>
     </li>
@@ -70,19 +69,23 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="correlations.md">Correlations</a>
+                    <li class="toctree-l1"><a class="reference internal" href="Correlations/">Correlations</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="spectral_properties.md">Spectral properties</a>
+                    <li class="toctree-l1"><a class="reference internal" href="Spectral_properties/">Spectral properties</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="data_clustering.md">Data clustering</a>
+                    <li class="toctree-l1"><a class="reference internal" href="Data_clustering/">Data clustering</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="misc/">Misc.</a>
+                    <li class="toctree-l1"><a class="reference internal" href="Motif_recognition/">Motif recognition</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="misc/">Miscellaneous</a>
                     </li>
                 </ul>
       </div>
@@ -114,6 +117,7 @@
   
   <hr/>
 </div>
+
           <div role="main">
             <div class="section">
               
@@ -136,19 +140,20 @@
 <br/>
 Often, especially when dealing with ordinal time-series, it is enough to map the different values to a set of integers to carry the analysis. However, when it is not sufficient <strong>CategoricalTimeSeries.jl</strong> is here to help.</p>
 <h2 id="overview">Overview</h2>
-<p>The package lets you carry three main kind of analysis: <strong>Spectral analysis</strong>, <strong>Data clustering</strong> and <strong>correlations analysis</strong>. Other functionnalities are also avalaible (see misc.). Here is a quick overview of these methods, for more details go to the specific sections.</p>
+<p>The package lets you carry four main kind of analysis: <strong>Spectral analysis</strong>, <strong>Data clustering</strong>, <strong>correlations analysis</strong> and <strong>motif recognition</strong>. Other functionnalities are also avalaible (see misc.). These methods are agnostic to the type of data used (ordinal or nominal) as they do not rely on a pre-established ordering. Here is a quick overview of these methods, for more details go to the specific sections.</p>
 <h4 id="spectral-analysis">Spectral analysis</h4>
-<p>The standard approach to study spectral properties in categorical time-series is to map the different values to a set of numbers. While the overall shape of the spectrum is usually unaffected by this operation, peaks representing cyclic behaviors in the time-series can completely disappear depending on the choice of mapping. To tackle this issue, this package proposes an implementation of the spectral envelope method. It was developed by <em>David S. Stoffer</em>  in order to identify optimal mappings.</p>
+<p>The standard approach to study spectral properties in categorical time-series is to map the different values to a set of numbers. While the overall shape of the spectrum is usually unaffected by this operation, peaks representing cyclic behaviors in the time-series can completely disappear depending on the choice of mapping. To tackle this issue, one can use the spectral envelope method. It was developed by <em>David S. Stoffer</em>  in order to identify optimal mappings.</p>
 <h4 id="data-clustering">Data clustering</h4>
-<p>A categorical time-series might have many different possible values, but these values are rarely independant. Some categories are usually equivalent to one-another. For example, among the values <code>"male"</code>, <code>"female"</code>, <code>"house"</code> and <code>"car"</code>, it is evident that <code>"male"</code> and <code>"female"</code> refer to similar concepts and could be grouped in one single category. Data clustering is the task of identifying relationships of equivalency in the time-series in order to reduce it to a more efficient representation. <strong>CategoricalTimeSeries.jl</strong> offers an implementation of the <em>information bottleneck</em> to this end.</p>
+<p>A categorical time-series might have many different possible values, but these values are rarely independant. Some categories can be loosely equivalent to one-another. For example, among the values <code>"male"</code>, <code>"female"</code>, <code>"house"</code> and <code>"car"</code>, it is evident that <code>"male"</code> and <code>"female"</code> refer to similar concepts and could be grouped in one single category. Data clustering is the task of identifying such relationships in the time-series in order to reduce it to a more efficient representation. Here, an implementation of the <em>information bottleneck</em> concept is used to this end.</p>
+<h4 id="motif-recognition">Motif recognition</h4>
+<p>Time-series sometimes present repeating motifs (or patterns) that are worthwhile identifying. In categorical time-series, the lack of proper distance measurement complicates this task, nonetheless several methods have been developed to this end. An implementation using the concept of <em>random projection</em> is used here.</p>
 <h4 id="correlation-analysis">Correlation analysis</h4>
-<p>The notion of autocorrelation function is formally not defined for a categorical time-series. Yet, it might be of interest to know how interdependent the values of the time-series are. Efforts have been made to generalize the concept of linear correlations to categorical time-series. This package implements several of these methods.</p>
-<h4 id="misc">Misc.</h4>
-<p>Additional functions are also provided in the package, allowing for instance to test for stationarity, look for change points or simply get confidence intervals.</p>
+<p>The notion of autocorrelation function is formally not defined for a categorical time-series. Yet, it might be of interest to know how inter-dependent the values of the time-series are. Efforts have been made to generalize the concept of linear correlations to categorical time-series. This package implements several of these methods.</p>
 <h2 id="installation">Installation</h2>
-<p>Like any other Julia package, <strong>CategoricalTimeSeries.jl</strong> can be installed with</p>
+<p>The source code is available on <a href="https://github.com/johncwok/CategoricalTimeSeries.jl">GitHub</a>, otherwise,
+<strong>CategoricalTimeSeries.jl</strong> can be installed with</p>
 <pre><code class="language-Julia">using Pkg
-Pkg.clone(&quot;https://github.com/johncwok/CategoricalTimeSeries.jl.git&quot;)
+Pkg.add(&quot;CategoricalTimeSeries&quot;)
 </code></pre>
 <p>To use it, you need to import it:</p>
 <pre><code class="language-Julia">using CategoricalTimeSeries
@@ -160,7 +165,7 @@ Pkg.clone(&quot;https://github.com/johncwok/CategoricalTimeSeries.jl.git&quot;)
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="misc/" class="btn btn-neutral float-right" title="Misc.">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="Correlations/" class="btn btn-neutral float-right" title="Correlations">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
     </div>
@@ -184,15 +189,20 @@ Pkg.clone(&quot;https://github.com/johncwok/CategoricalTimeSeries.jl.git&quot;)
   </div>
 
   <div class="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-      
-      
-        <span style="margin-left: 15px"><a href="misc/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
-    </span>
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/johncwok/CategoricalTimeSeries.jl.git" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+      <span><a href="Correlations/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
 </div>
     <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
     <script src="js/theme.js" defer></script>
       <script src="search/main.js" defer></script>
     <script defer>
@@ -205,6 +215,6 @@ Pkg.clone(&quot;https://github.com/johncwok/CategoricalTimeSeries.jl.git&quot;)
 </html>
 
 <!--
-MkDocs version : 1.1.2
-Build Date UTC : 2020-10-09 13:25:09.302940+00:00
+MkDocs version : 1.2.2
+Build Date UTC : 2021-10-07 15:05:01.240468+00:00
 -->
