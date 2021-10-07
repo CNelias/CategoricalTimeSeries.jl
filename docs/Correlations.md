@@ -73,7 +73,7 @@ Returns a top and bottom limit of a 95% confidence interval at values of `lags`.
 Using the Pewee [birdsong data](https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test) (1943) one can do a serial dependence plot using Cohen's cofficient as follow :
 ```
 using DelimitedFiles
-using SerialDependence
+using CategoricalTimeSeries
 using Plots
 #reading 'pewee' time-series test folder.
 series = readdlm("test\\pewee.txt",',')[1,:]
