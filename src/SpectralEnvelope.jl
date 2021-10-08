@@ -267,4 +267,4 @@ function apply_mapping(ts, mapping)
     return mapped_series
 end
 
-export spectral_envelope, get_mappings, detrend, smooth, power_spectrum
+export spectral_envelope, get_mappings, detrend, smooth, power_spectrum, apply_mappings
