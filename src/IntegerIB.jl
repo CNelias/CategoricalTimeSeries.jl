@@ -1,5 +1,3 @@
-module IntegerIB
-
 using Random
 using DataFrames
 import Base.merge!
@@ -529,5 +527,3 @@ function print_results(m::IB, disp_thres = 0.1)
 end
 
 export IB, search_optima!, brute_optimize!, IB_optimize!, calc_metrics, get_IB_curve, get_y, print_results, mapping
-
-end
