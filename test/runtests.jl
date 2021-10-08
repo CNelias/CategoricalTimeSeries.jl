@@ -43,6 +43,7 @@ end
   toy_ts = ["a", "b", "a", "b", "a", "c", "d", "b", "a", "a", "d", "b", "a", "b", "a", "d", "c", "d", "b", "a", "d", "a", "c", "b", "a", "a", "b", "a", "c", "b", "a"]
   model = IB(toy_ts, 500)
   IB_optimize!(model)
+  printstyled("So far so good"; color = :green)
   @test (size(model.qt_x, 1) == 2 || size(model.qt_x, 1) == 3) #we expect the algorithm to cluster at least 2 labels together.
 end
 
