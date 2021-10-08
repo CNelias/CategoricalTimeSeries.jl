@@ -21,8 +21,6 @@ end
   x,y,e = spectral_envelope(DNA; m=0)
   @test round(spectral_envelope(DNA)[2][5]; digits = 3) == round(0.003; digits = 3)
   mappings = get_mappings(DNA, 0.33)
-  print(typeof(mappings))
-  print(mappings)
   @test round(mappings["A"]; digits = 2) == round(0.54; digits = 2)
 end
 
@@ -40,11 +38,10 @@ end
   @test round(iyt, digits = 2) == 0.78
   @test round(L, digits = 2) == 1.32
   #toy time-series presenting one predictable pattern "b" -> "a"
-  toy_ts = ["a", "b", "a", "b", "a", "c", "d", "b", "a", "a", "d", "b", "a", "b", "a", "d", "c", "d", "b", "a", "d", "a", "c", "b", "a", "a", "b", "a", "c", "b", "a"]
-  model = IB(toy_ts, 500)
-  IB_optimize!(model)
-  printstyled("So far so good"; color = :green)
-  @test (size(model.qt_x, 1) == 2 || size(model.qt_x, 1) == 3) #we expect the algorithm to cluster at least 2 labels together.
+ # toy_ts = ["a", "b", "a", "b", "a", "c", "d", "b", "a", "a", "d", "b", "a", "b", "a", "d", "c", "d", "b", "a", "d", "a", "c", "b", "a", "a", "b", "a", "c", "b", "a"]
+ # model = IB(toy_ts, 500)
+ # IB_optimize!(model)
+ # @test (size(model.qt_x, 1) == 2 || size(model.qt_x, 1) == 3) #we expect the algorithm to cluster at least 2 labels together.
 end
 
 #testing motif recognition
