@@ -141,10 +141,10 @@ function plot_motif(motif)
 end
 
 """
-    mapping(ts)
+    map_to_integer(ts)
 returns an integer mapping of input time-series 'ts'.
 """
-function mapping(ts)
+function map_to_integer(ts)
     categories = unique(ts)
     arr = copy(ts)
     for (idx, elt) in enumerate(arr)
@@ -157,4 +157,4 @@ function mapping(ts)
     return arr
 end
 
- export detect_motifs, mapping, find_motifs, plot_motif, expected_matches, least_occurence_threshold
+ export detect_motifs, map_to_integer, find_motifs, plot_motif, expected_matches, least_occurence_threshold
