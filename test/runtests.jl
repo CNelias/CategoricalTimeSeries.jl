@@ -4,8 +4,8 @@ using CategoricalTimeSeries
 
 #toy time-series presenting one predictable pattern "b" -> "a"
 test_ts_string = ["a", "b", "a", "b", "a", "c", "d", "b", "a", "a", "d", "b", "a", "b", "a", "d", "c", "d", "b", "a", "d", "a", "c", "b", "a", "a", "b", "a", "c", "b", "a"]
-test_ts_integer = [1, 2, 1, 2, 1, 3, 4, 2, 1, 1, 4, 2, 1, 2, 1, 4, 3, 4, 2, 1, 4, 1, 3, 2, 1, 1, 2, 1, 3, 2, 1] 
-test_ts_float = [1.1, 2.1, 1.1, 2.1, 1.1, 3.1, 4.1, 2.1, 1.1, 1.1, 4.1, 2.1, 1.1, 2.1, 1.1, 4.1, 3.1, 4.1, 2.1, 1.1, 4.1, 1.1, 3.1, 2.1, 1.1, 1.1, 2.1, 1.1, 3.1, 2.1, 1.1] 
+test_ts_integer = Int64[1, 2, 1, 2, 1, 3, 4, 2, 1, 1, 4, 2, 1, 2, 1, 4, 3, 4, 2, 1, 4, 1, 3, 2, 1, 1, 2, 1, 3, 2, 1] 
+test_ts_float = Float64[1.1, 2.1, 1.1, 2.1, 1.1, 3.1, 4.1, 2.1, 1.1, 1.1, 4.1, 2.1, 1.1, 2.1, 1.1, 4.1, 3.1, 4.1, 2.1, 1.1, 4.1, 1.1, 3.1, 2.1, 1.1, 1.1, 2.1, 1.1, 3.1, 2.1, 1.1] 
 
 
 #testing the serial dependences functions by reproducing the results from C. Weiss's book "An Introduction to Discrete-Valued Time Series".
