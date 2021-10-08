@@ -13,7 +13,7 @@ A class storing useful information about found motifs in a time-series. An array
 >**Attributes**:
 
 - **shape** ([Array{Any,1}](https://docs.julialang.org/en/v1/base/arrays/)): Array containing the shape (or contour) of the first found repetition of the motif.
-- **repetitions** ([Array{Array{Any,1},1}](https://docs.julialang.org/en/v1/base/arrays/)): all the different shapes from the motif's repetitions, they can vary a bit from one to the next.
+- **instances** ([Array{Array{Any,1},1}](https://docs.julialang.org/en/v1/base/arrays/)): all the different shapes from the motif's repetitions, they can vary a bit from one to the next.
 - **positions** ([Array{Int,1}](https://docs.julialang.org/en/v1/base/arrays/)): the positions at which the different repetitions of the motif were found.
 
 ## Main functions
