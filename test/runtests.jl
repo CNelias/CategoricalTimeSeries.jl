@@ -20,7 +20,10 @@ end
   DNA = readdlm("DNA_data.txt", ',')[1,:]
   x,y,e = spectral_envelope(DNA; m=0)
   @test round(spectral_envelope(DNA)[2][5]; digits = 3) == round(0.003; digits = 3)
-  @test round(get_mappings(DNA, 0.33)["A"]; digits = 2) == round(0.54; digits = 2)
+  mappings = get_mappings(DNA, 0.33)
+  print(typeof(mappings))
+  print(mappings)
+  @test round(mappings["A"]; digits = 2) == round(0.54; digits = 2)
 end
 
 #testing integerIB
