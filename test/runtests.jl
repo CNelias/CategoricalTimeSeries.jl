@@ -83,3 +83,11 @@ end
   @test detect_motifs(test_ts_string, 5, 1)[1].shape == ["d", "b", "a", "b", "a"]
 end
 
+@testset "misc" begin
+  @test rate_evolution(test_ts_integer)[1][1] == 1
+  @test rate_evolution(test_ts_float)[1][1] == 1
+  @test rate_evolution(test_ts_string)[1][1] == 1
+  @test round(power_spectrum(test_ts_float, 10, 2)[2]; digits = 2) == 9.68
+  @test round(LaggedBivariateProbability(test_ts_string, [4], "a", "b")[2][1]; digits = 2) == 0.15
+end
+
