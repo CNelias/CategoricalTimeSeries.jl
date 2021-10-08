@@ -41,6 +41,7 @@ end
   test_ts = ["a", "b", "a", "b", "a", "c", "d", "b", "a", "a", "d", "b", "a", "b", "a", "d", "c", "d", "b", "a", "d", "a", "c", "b", "a", "a", "b", "a", "c", "b", "a"]
   model = IB(test_ts, 500)
   IB_optimize!(model)
+  print("Final cluster size:" , size(model.qt_x, 1))
   @test (size(model.qt_x, 1) == 2 || size(model.qt_x, 1) == 3) #we expect the algorithm to cluster at least 2 labels together.
 end
 
