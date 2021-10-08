@@ -246,7 +246,7 @@ function rate_evolution(Series)
     for c in categories
         init = zeros(length(Series))
         for v in 1:length(Series)
-            if data[v] == c
+            if Series[v] == c
                 init[v] = 1
             end
         end
