@@ -105,7 +105,7 @@ We notice that the motif `[-1, -2, 10, -10, 2, 3, 5]` seems to be the underlying
 We do an exact search with 1 error allowed to check if our previous detection missed any repetitions, and plot the found motif on top of each other:
 ```
 consensus_shape = [-1, -2, 10, -10, 2, 3, 5]
-motif = find_motifs(data, consensus_shape, 1)
+motif = find_motifs(intervals, consensus_shape, 1)
 plot_motif(motif)
 ```
 <img src=https://user-images.githubusercontent.com/34754896/104308882-9c2c9e80-54d1-11eb-8882-cc31b7b2af8b.PNG width = "500">
