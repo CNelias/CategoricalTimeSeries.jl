@@ -88,6 +88,6 @@ end
   @test rate_evolution(test_ts_float)[1][1] == 1
   @test rate_evolution(test_ts_string)[1][1] == 1
   @test round(power_spectrum(test_ts_float, 10, 2)[2]; digits = 2) == 9.68
-  @test round(LaggedBivariateProbability(test_ts_string, Int64[4, 5], "a", "b")[2][1]; digits = 2) == 0.15
+  @test round(LaggedBivariateProbability(test_ts_string, Int64(4))[1,1]; digits = 2) == 0.15
 end
 
