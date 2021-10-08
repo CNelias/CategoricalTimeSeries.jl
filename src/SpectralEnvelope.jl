@@ -11,14 +11,11 @@ end
 
 """
 smoothens the given series by mixen each points with it's neighboors.
-
     input:
     - data: the series you want to smooth
     - m : the numbers of points to be involved in the mixing process.
-
     output:
     - smoothened series, shorter of m points than the original.
-
 """
 
 function smooth(data::Array{Float64,1}; m = 5)
@@ -54,12 +51,9 @@ end
 One-hot encodes the time-series. For k categories,
 each category gets a k-1 unit vector, except the last one which
 is mapped to zeros(k - 1).
-
     Example:
-
     vectorize([1,2,3,1,2]) returns :
     [[1,0],[0,1],[0,0],[1,0]]
-
 """
 
 function vectorize(data)
@@ -79,13 +73,11 @@ end
 
 """
 Splits the time-series into overlapping equal-lengthed chunks of given size.
-
     input :
     - x : the time-series
     - window : the size of the equal-lengthed chunks
     - step : size of the step by which the window is sliding along the time-series
     the smaller the value of size, the bigger the overlap between the different chunks.
-
     output :
     -  overlapping equal-lengthed windowed time-series
 """
@@ -101,15 +93,12 @@ end
 
 """
 returns the power spectrum of a given time serie,
-
     input :
     - time serie
     - window for averaging (default = length(time serie)/10)
     - step for the window's sliding
-
     output :
     - value of the power spectrum
-
 You will have to provide the frequencies yourself
 """
 
@@ -123,7 +112,6 @@ end
 
 """
     periodogram_matrix(ts::Array{Float64,2}, demean = false; m=2)
-
 Computes the k x k periodogram matrix (k number of categories).
 If 'average' true, segments data and computes the average periodogram matrix over all segments.
 m is the smoothing parameter.
@@ -189,22 +177,17 @@ end
 
 """
 Computes the spectral envelope of the given time-series.
-
     input:
-
     - ts: the time series to analyse
     - m : the degree of smoothing wished.
           m corresponds to the number of neighbooring points that are mixed
           with given point to realize the smoothing.
-
     output:
-
     - Frequencies : list of points corresponding to the involved frequencies.
                     contained in [0,0.5]
     - amplitude : values of the spectral envelope for each given frequency point.
     - eigenvectors : the optimal scaling for the different categories, for each frequency point.
     - categories : the list of categories present in the data.
-
 """
 function spectral_envelope(ts; m = 3)
     result = Float64[]
@@ -228,7 +211,6 @@ end
 
 """
      get_mappings(data, freq; m = 3)
-
 Returns the optimal mappings corresponding to the frequency 'freq'.
 Prints the position and strengh of peak at 'f' for control purposes.
 input :
@@ -237,7 +219,6 @@ input :
     - m : smoothing parameters (see 'spectral_envelope')
 returns :
     - mappings : the mapping at the peak associated with the desired frequency.
-
 example:
     # we have some data, plotting the spectral envelope, we see a peak at 0.33
     m = get_mappings(data, 0.33)
@@ -249,9 +230,9 @@ function get_mappings(data, freq; m = 3)
     window = Int(div(0.04*length(f),1))
     peak_pos = findmin([abs(freq - delta*i) for i in 1:length(f)])[2]
     true_pos = findmax(se[peak_pos-window:peak_pos+window])[2] + peak_pos - window - 1
-    mappings = [string(categories[i]," : ",round(eigvecs[i,true_pos]; digits = 2)) for i in 1:length(eigvecs[:,1])]
+    mappings = Dict(categories[i] => round(eigvecs[i,true_pos]; digits = 2) for i in 1:length(eigvecs[:,1]))
     if length(categories) != length(eigvecs[:,1])
-        push!(mappings, string(unique(data)[end]," : ", 0.0))
+        push!(mappings, unique(data)[end] => 0.0)
     end
     println("position of peak: ",round(f[true_pos],digits = 2)," strengh of peak: ",round(se[true_pos], digits = 2))
     return mappings
@@ -270,5 +251,20 @@ function findmax_in(xserie,yserie,xlim)
     return max, xserie[real_pos[pos]], real_pos[pos]
 end
 
+"""
+    apply_mapping(ts, mapping)
+Transforms the input time-series 'ts' according to the mapping 'mapping'.
+Typically, 'mapping' would be the output of the 'get_mappings' function, although you can provide your own.
+'mapping' should be a Dict specifying each value and what it should be mappied to. Example:
+{"A" : 0.54, "G" : 0.62, "T" : -0.57, "C" : 0.0}
+Returns an array which correspond to the mapped series according to 'mapping'
+"""
+function apply_mapping(ts, mapping)
+    mapped_series = deepcopy(ts)
+    for (index, value) in enumerate(mapped_series)
+        mapped_series[index] = mapping[value]
+    end
+    return mapped_series
+end
 
 export spectral_envelope, get_mappings, detrend, smooth, power_spectrum
