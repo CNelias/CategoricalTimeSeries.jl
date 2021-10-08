@@ -1,5 +1,3 @@
-module SpectralEnvelope
-
 using FFTW
 using Polynomials
 using LinearAlgebra
@@ -274,5 +272,3 @@ end
 
 
 export spectral_envelope, get_mappings, detrend, smooth, power_spectrum
-
-end
