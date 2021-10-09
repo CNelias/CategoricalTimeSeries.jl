@@ -56,15 +56,15 @@ end
   @test round(iyt, digits = 2) == 0.78
   @test round(L, digits = 2) == 1.32
   model = IB(test_ts_string, 500) #testing string input
-  IB_optimize!(model)
+  IB_optimize!(model; report = False)
   #we expect the algorithm to cluster at least 2 labels together.
   #However, due to the probabilistic nature of the algorithm it is possible that no clustering comes out (~0.5% chance) hence the allowance of ```size(model.qt_x, 1) == 4```
   @test (size(model.qt_x, 1) == 2 || size(model.qt_x, 1) == 3 || size(model.qt_x, 1) == 4)  
   model = IB(test_ts_integer , 500) #same test with integer input
-  IB_optimize!(model)
+  IB_optimize!(model; report = False)
   @test (size(model.qt_x, 1) == 2 || size(model.qt_x, 1) == 3 || size(model.qt_x, 1) == 4) 
   model = IB(test_ts_float, 500) #same test with float input
-  IB_optimize!(model)
+  IB_optimize!(model; report = False)
   @test (size(model.qt_x, 1) == 2 || size(model.qt_x, 1) == 3 || size(model.qt_x, 1) == 4) 
 end
 
