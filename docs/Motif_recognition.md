@@ -114,6 +114,7 @@ Here, we obtain the same plot as before but this is not necessarily always the c
 
 Now, we visualize the repetitions of the motif in the time-series:
 ```
-plot_motif(motif, ts)
+plot_motif(motif, data)
 ```
-<img src=https://user-images.githubusercontent.com/34754896/104313663-a1411c00-54d8-11eb-9854-70bd5ed9ba2f.PNG width = "600">
+<img src=https://user-images.githubusercontent.com/34754896/136664810-50cb437a-6924-4ba8-a562-c6e6784affcd.PNG width = "800">
+
