@@ -52,16 +52,20 @@ using CategoricalTimeSeries
 
 data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "DNA_data.txt")
 data = readdlm(data_path, ',')
-f, se, eigvecs = spectral_envelope(data; m = 4)
+f, se, eigvecs = spectral_envelope(data; m = 0)
 
 plot(f, se, xlabel = "Frequency", ylabel = "Intensity", title = "test data: extract of Epstein virus DNA", label = "spectral envelope")
 ```
-<img src=https://user-images.githubusercontent.com/34754896/91556982-eef72680-e933-11ea-85f3-fab6aea17258.PNG width = "500">
+<img src=https://user-images.githubusercontent.com/34754896/136663948-a1ada6b7-691e-4e75-9fea-f905240c261e.PNG width = "500">
 
 To get the associated optimal mapping for the peak at frequency 0.33:
 ```
 mappings = get_mappings(data, 0.33)
->> position of peak: 0.33 strengh of peak: 0.6
+>> position of peak: 0.33 strengh of peak: 0.01
 print(mappings)
->> ["A : 0.54", "G : 0.62", "T : -0.57", "C : 0.0"]
+>> Dict{SubString{String}, Float64} with 4 entries:
+  "A" => 0.54
+  "T" => -0.57
+  "C" => 0.0
+  "G" => 0.62
 ```
