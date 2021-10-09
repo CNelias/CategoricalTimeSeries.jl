@@ -80,7 +80,7 @@ data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "p
 series = readdlm(data_path,',')[1,:]
 lags = collect(1:25)
 v = cohen_coefficient(series, lags)
-t, b = bootstrap_CI(series, cramer_coefficient, lags)
+t, b = bootstrap_CI(series, lags, cramer_coefficient)
 a = plot(lags, v, xlabel = "Lags", ylabel = "K", label = "Cramer's k")
 plot!(a, lags, t, color = "red", label = "Limits of 95% CI"); plot!(a, lags, b, color = "red", label = "")
 ```
