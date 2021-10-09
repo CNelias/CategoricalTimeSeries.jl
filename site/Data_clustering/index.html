@@ -247,6 +247,7 @@ There are two undesirable situations: if <code>β</code> is too small, maximal c
 <hr />
 <p>Here is a concrete example with data from <a href="https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test">Bach chorales</a>. The input categories are the 7 types of diatonic chords described in classical music theory. In this case, the data (input series and context) have already been compiled into a co-occurence table, so we instantiate the IB model with a probability distribution:</p>
 <pre><code>using CategoricalTimeSeries
+using CSV, DataFrames
 
 data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), &quot;test&quot;, &quot;bach_histogram&quot;)
 bach = DataFrame(CSV.File(data_path))
@@ -260,6 +261,7 @@ print_results(model)
 <hr />
 <p>In the next example, we instantiate the model with a time-series (<a href="https://github.com/johncwok/IntegerIB.jl/tree/master/data">saxophone solo</a>) and define our own context.</p>
 <pre><code>using CategoricalTimeSeries
+using CSV, DataFrames
 
 data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), &quot;test&quot;, &quot;coltrane_afro_blue&quot;)
 data = DataFrame(CSV.File(data_path))[!,1]  #time-series of notes from saxophone solo (John Coltrane).
@@ -269,7 +271,7 @@ IB_optimize!(model)
 </code></pre>
 <hr />
 <p>Now, we show how to plot the IB curve:</p>
-<pre><code>using Plots
+<pre><code>using Plots, CSV, DataFrames
 using CategoricalTimeSeries
 
 data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), &quot;test&quot;, &quot;bach_histogram&quot;)

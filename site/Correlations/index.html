@@ -197,11 +197,11 @@ data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), &quot;test
 series = readdlm(data_path,',')[1,:]
 lags = collect(1:25)
 v = cohen_coefficient(series, lags)
-t, b = bootstrap_CI(series, cramer_coefficient, lags)
+t, b = bootstrap_CI(series, lags, cramer_coefficient)
 a = plot(lags, v, xlabel = &quot;Lags&quot;, ylabel = &quot;K&quot;, label = &quot;Cramer's k&quot;)
 plot!(a, lags, t, color = &quot;red&quot;, label = &quot;Limits of 95% CI&quot;); plot!(a, lags, b, color = &quot;red&quot;, label = &quot;&quot;)
 </code></pre>
-<p><img src=https://user-images.githubusercontent.com/34754896/90892617-de87fe80-e3bd-11ea-8f0e-f2e4d77959f2.PNG width = "600"></p>
+<p><img src=https://user-images.githubusercontent.com/34754896/136663737-f30f20bf-c42b-4979-b514-637be8b7f404.PNG width = "600"></p>
 <p>[1] DOI : 10.1002/9781119097013</p>
               
             </div>

@@ -125,7 +125,7 @@
 </blockquote>
 <ul>
 <li><strong>shape</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Any,1}</a>): Array containing the shape (or contour) of the first found repetition of the motif.</li>
-<li><strong>repetitions</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Array{Any,1},1}</a>): all the different shapes from the motif's repetitions, they can vary a bit from one to the next.</li>
+<li><strong>instances</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Array{Any,1},1}</a>): all the different shapes from the motif's repetitions, they can vary a bit from one to the next.</li>
 <li><strong>positions</strong> (<a href="https://docs.julialang.org/en/v1/base/arrays/">Array{Int,1}</a>): the positions at which the different repetitions of the motif were found.</li>
 </ul>
 <h2 id="main-functions">Main functions</h2>
@@ -230,15 +230,15 @@ plot_motif(m[1]) #plotting most frequent motif
 <img src=https://user-images.githubusercontent.com/34754896/104315350-1ca3cd00-54db-11eb-864d-3a1da9d5efeb.PNG width = "500"></p>
 <p>We do an exact search with 1 error allowed to check if our previous detection missed any repetitions, and plot the found motif on top of each other:</p>
 <pre><code>consensus_shape = [-1, -2, 10, -10, 2, 3, 5]
-motif = find_motifs(data, consensus_shape, 1)
+motif = find_motifs(intervals, consensus_shape, 1)
 plot_motif(motif)
 </code></pre>
 <p><img src=https://user-images.githubusercontent.com/34754896/104308882-9c2c9e80-54d1-11eb-8882-cc31b7b2af8b.PNG width = "500"></p>
 <p>Here, we obtain the same plot as before but this is not necessarily always the case. Knowing the consensus motif usually allows to find its repetitions more efficiently.</p>
 <p>Now, we visualize the repetitions of the motif in the time-series:</p>
-<pre><code>plot_motif(motif, ts)
+<pre><code>plot_motif(motif, data)
 </code></pre>
-<p><img src=https://user-images.githubusercontent.com/34754896/104313663-a1411c00-54d8-11eb-9854-70bd5ed9ba2f.PNG width = "600"></p>
+<p><img src=https://user-images.githubusercontent.com/34754896/136664810-50cb437a-6924-4ba8-a562-c6e6784affcd.PNG width = "800"></p>
               
             </div>
           </div>

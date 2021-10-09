@@ -157,17 +157,21 @@ The degree of smoothing can be chosen by the user.</p>
 using CategoricalTimeSeries
 
 data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), &quot;test&quot;, &quot;DNA_data.txt&quot;)
-data = readdlm(data_path)
-f, se, eigvecs = spectral_envelope(data; m = 4)
+data = readdlm(data_path, ',')
+f, se, eigvecs = spectral_envelope(data; m = 0)
 
 plot(f, se, xlabel = &quot;Frequency&quot;, ylabel = &quot;Intensity&quot;, title = &quot;test data: extract of Epstein virus DNA&quot;, label = &quot;spectral envelope&quot;)
 </code></pre>
-<p><img src=https://user-images.githubusercontent.com/34754896/91556982-eef72680-e933-11ea-85f3-fab6aea17258.PNG width = "500"></p>
+<p><img src=https://user-images.githubusercontent.com/34754896/136663948-a1ada6b7-691e-4e75-9fea-f905240c261e.PNG width = "500"></p>
 <p>To get the associated optimal mapping for the peak at frequency 0.33:</p>
 <pre><code>mappings = get_mappings(data, 0.33)
-&gt;&gt; position of peak: 0.33 strengh of peak: 0.6
+&gt;&gt; position of peak: 0.33 strengh of peak: 0.01
 print(mappings)
-&gt;&gt; [&quot;A : 0.54&quot;, &quot;G : 0.62&quot;, &quot;T : -0.57&quot;, &quot;C : 0.0&quot;]
+&gt;&gt; Dict{SubString{String}, Float64} with 4 entries:
+  &quot;A&quot; =&gt; 0.54
+  &quot;T&quot; =&gt; -0.57
+  &quot;C&quot; =&gt; 0.0
+  &quot;G&quot; =&gt; 0.62
 </code></pre>
               
             </div>
