@@ -265,15 +265,15 @@ This is done for every point in 'lags' (can be costly if 'Series' is long).
 
 Input :
     - Series : input array of categorical data
+    - lags (Array{Int64,1}) : the lag values at which the analysis is conducted
     - coef_func (**function**) : the function for which the CI needs to be computed.
             'coefficient' can be one of the following **functions** : 'cramer_coefficient, cohen_coefficient, theils_U'.
-    - lags (Array{Int64,1}) : the lag values at which the analysis is conducted
     - n_iter (Int64) : how many iterations are run for the bootstrap procedure.
 returns :
     - top (Array{Float64,1}) : Array of values for the upper limit of the CI.
     - bottom (Array{Float64,1}) : Array of values for the lower limit of the CI.
 """
-function bootstrap_CI(Series, coef_func, lags, n_iter = 1000)
+function bootstrap_CI(Series,  lags, coef_func, n_iter = 1000)
     critical_values = zeros(n_iter)
     bootstrap_storage = zeros(n_iter, length(lags))
     for i in 1:n_iter
