@@ -1,8 +1,12 @@
-## List of improvements
+## Issues
+If you are experiencing troubles/bugs with some functionallities of the package, please open an issue and I will try to resolve it.
+Alternatively, you can also open an issue to give me feedback or suggest new features.
 
+## List of improvements
 Despite all my efforts to make this package as complete as possible, I haven't had the time to implement certain improvements.
 If you want to help, your contribution will be appreciated!
-Here is a list of the things that could be added to the existing methods:
+
+Here is a list of potential improvements to the existing methods:
 - Implement common windowing functions for the **spectral envelope** method. The original paper post processes the results with a smoothing function, however the core estimation is still based on the periodogram. This effectively passes the data through a normalized boxcar function which is known to introduce bias.
 As is the case in power-spectral density estimation, (e.g. Welch's method) a carefully choosen window such as the Hanning, Hamming or Blackman function could help reducing the bias and improve the accuracy of the results. However, introducing such windows will change the mathematical starting point of the spectral envelope and I do not know if closed-form solutions can be found for all windows.
 - Implement simulated annealing for the **Information bottleneck** method: due to the probabilistic nature of this algorithm, results do not always converge to the absolute minima of the cost function. 
