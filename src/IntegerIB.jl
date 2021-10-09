@@ -346,7 +346,7 @@ Keywords arguments are :
     - ct_thres : number of steps where L has to be < to abs_thres or rel_thres to declare convergence.
     - n_conv : limit of the number of iterations for the optimization algorithm.
     - scan (bool): when using 'DIB' algorithm, checks and merges clusters if it leads to reduction of cost function.
-    - report : wether or not to say when and how convergence was reached.
+    - report : wether or not to say when and how convergence was reached, and indicates which cluster merged.
 """
 function IB_optimize!(model::IB; merge_thres = 5*10^-2, abs_thres = 10^-10, rel_thres = 0, ct_thres = 25, n_conv = 1000, scan = true, report = true)
     consec_conv = 0
@@ -355,7 +355,7 @@ function IB_optimize!(model::IB; merge_thres = 5*10^-2, abs_thres = 10^-10, rel_
     while consec_conv <= ct_thres && total_steps <= n_conv
         IB_step!(model, merge_thres; report = report)
         if model.algorithm == "DIB" && scan
-            brute_optimize!(model, false)
+            brute_optimize!(model, false; report = report)
         end
         L_current = calc_metrics(model)[4]
         if check_conv(L, L_current, abs_thres, rel_thres)
@@ -388,12 +388,12 @@ function merge!(m::IB, clust_thres = 10^-5)
 end
 
 """
-    brute_optimize!(m::IB, findbest = true)
+    brute_optimize!(m::IB, findbest = true; report = true)
 
 Performs bute force optimization of IB model, looking at all possible cluster combinations
 and choosing the merges that reduce the cost function.
 """
-function brute_optimize!(m::IB, findbest = true)
+function brute_optimize!(m::IB, findbest = true; report = true)
     if m.algorithm == "IB"
         println("IB agorithm must be DIB.")
         return
@@ -416,7 +416,9 @@ function brute_optimize!(m::IB, findbest = true)
                     mergedt1 = t1
                     mergedt2 = t2
                     anybetter = true
-                    print("merged clusters $mergedt1 and $mergedt2 \n")
+                    if report
+                        print("merged clusters $mergedt1 and $mergedt2 \n")
+                    end
                 end
             end
         end
