@@ -269,19 +269,22 @@ Input :
     - coef_func (**function**) : the function for which the CI needs to be computed.
             'coefficient' can be one of the following **functions** : 'cramer_coefficient, cohen_coefficient, theils_U'.
     - n_iter (Int64) : how many iterations are run for the bootstrap procedure.
+    - interval_size (Float64) : the size of the desired confidence interval in percent. Defaults to 0.95 (i.e 95% confidence interval).
 returns :
     - top (Array{Float64,1}) : Array of values for the upper limit of the CI.
     - bottom (Array{Float64,1}) : Array of values for the lower limit of the CI.
 """
-function bootstrap_CI(Series,  lags, coef_func, n_iter = 1000)
+function bootstrap_CI(Series,  lags, coef_func, n_iter = 1000, interval_size = 0.95)
+    interval_bounds = floor(Int, (n_iter - n_iter*interval_size)/2)
     critical_values = zeros(n_iter)
     bootstrap_storage = zeros(n_iter, length(lags))
     for i in 1:n_iter
         bootstrap_storage[i,:] = coef_func(shuffle(Series), lags)
     end
-    top_values = sort(bootstrap_storage, dims = 1)[n_iter - div(n_iter,40),:]
-    bottom_values = sort(bootstrap_storage, dims = 1)[div(n_iter,40),:]
+    top_values = sort(bootstrap_storage, dims = 1)[n_iter - interval_bounds,:]
+    bottom_values = sort(bootstrap_storage, dims = 1)[interval_bounds,:]
     return top_values, bottom_values
 end
+
 
 export cramer_coefficient, cohen_coefficient, conditional_entropy, LaggedBivariateProbability, H, theils_u, rate_evolution
