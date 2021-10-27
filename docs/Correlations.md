@@ -83,10 +83,9 @@ lags = collect(1:25)
 v = cohen_coefficient(series, lags)
 t, b = bootstrap_CI(series, lags, cramer_coefficient)
 a = plot(lags, v, xlabel = "Lags", ylabel = "K", label = "Cramer's k")
-plot!(a, lags, t, color = "red", label = "Limits of 95% CI"); plot!(a, lags, b, color = "red", label = "")
+plot!(a, lags, t, color = "red", label = "Limits of 95% CI"); plot!(a, lags, b, color = "red", label = "", dpi = 600)
 ```
-
-<img src=https://user-images.githubusercontent.com/34754896/136663737-f30f20bf-c42b-4979-b514-637be8b7f404.PNG width = "600">
+<img src=https://user-images.githubusercontent.com/34754896/139043402-7321dfda-c741-473d-bcb2-57a5ee217946.png width = "600">
 
 
 [1] DOI : 10.1002/9781119097013
