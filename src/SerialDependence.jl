@@ -7,21 +7,19 @@ Used in the computation of cramer's V and cohen's K.
 Returns the lagged bivariate probability of two given categories, Pij.
 Given i and j two categories, and l a lag,
 Pij is the probability to have the category j at time t + l, if we have i at time t.
-
     inputs :
     - time series : the data to analyse
     - lag : the value of lag at which one wants Pij
     - category1 : the first category
     - category2 : the second category
-
     output :
     - Pij : the probability to observe j at t + l if we observe i at time t.
 """
 function LaggedBivariateProbability(TimeSerie, Lag::Int, Category1, Category2)
     Pij = 0
     lagged_serie_length = length(TimeSerie) - Lag
-    for i in 1:lagged_serie_length
-        if (TimeSerie[i] == Category1) && (TimeSerie[i + Lag] == Category2)
+    for i in Lag+1:lagged_serie_length
+        if (TimeSerie[i] == Category1) && (TimeSerie[i - Lag] == Category2)
             Pij += 1/(lagged_serie_length)
         end
     end
@@ -46,9 +44,9 @@ function LaggedBivariateProbability(TimeSeries, Lag::Int64)
     lagged_serie_length = length(TimeSeries) - Lag
     for (idxi, i) in enumerate(categories)
         for (idxj, j) in enumerate(categories)
-            for t in 1:lagged_serie_length
-                if (TimeSeries[t] == i) && (TimeSeries[t + Lag] == j)
-                        Pij[idxi, idxj] += 1/(lagged_serie_length)
+            for t in Lag+1:length(TimeSeries)
+                if (TimeSeries[t] == i) && (TimeSeries[t - Lag] == j)
+                    Pij[idxi, idxj] += 1/(lagged_serie_length)
                 end
             end
         end
@@ -93,7 +91,7 @@ function cohen_coefficient(Serie, lag = 1)
     lagged_pij = LaggedBivariateProbability(Serie, lag)
     for (idxi, i) in enumerate(categories)
         K += (lagged_pij[idxi, idxi] - rf_squared[idxi])
-        pi_denominateur =+ rf_squared[idxi]
+        pi_denominateur += rf_squared[idxi]
     end
     K = K/(1-pi_denominateur)
     return K
@@ -115,7 +113,7 @@ function cohen_coefficient(Serie, Lags::Array{Int64,1})
         lagged_pij = LaggedBivariateProbability(Serie, l)
         for (idxi, i) in enumerate(categories)
             k += (lagged_pij[idxi, idxi] - rf_squared[idxi])
-            pi_denominateur =+ rf_squared[idxi]
+            pi_denominateur += rf_squared[idxi]
         end
         K[lidx] =  k/(1-pi_denominateur)
     end
@@ -157,10 +155,10 @@ function cramer_coefficient(Serie, Lags::Array{Int64,1})
         lagged_pij = LaggedBivariateProbability(Serie, lag)
         for i in 1:d+1
             for j in 1:d+1
-                v =+ ( (lagged_pij[i,j]-rf[i]*rf[j])^2 ) / (rf[i]*rf[j])
+                v += ( (lagged_pij[i,j]-rf[i]*rf[j])^2 ) / (rf[i]*rf[j])
             end
         end
-        V[lidx] = sqrt(v/d)
+        V[lidx] = sqrt(v)/d
     end
     return V
 end
@@ -175,10 +173,10 @@ function cramer_coefficient(Serie, lag = 1)
     rf = [relative_frequency(Serie,i) for i in 1:d+1]
     for i in 1:d+1
         for j in 1:d+1
-            v =+ ((lagged_pij[i,j]-rf[i]*rf[j])^2)/(rf[i]*rf[j])
+            v += ((lagged_pij[i,j]-rf[i]*rf[j])^2)/(rf[i]*rf[j])
         end
     end
-    return sqrt(v/d)
+    return sqrt(v)/d
 end
 
 """
