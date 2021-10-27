@@ -55,9 +55,9 @@ It is therefore useful to relate estimations to a corresponding confidence inter
 **bootstrap_CI — Function**
 - - -
 ```Julia
-bootstrap_CI(series, lags, coef_func, n_iter = 1000)
+bootstrap_CI(series, lags, coef_func, n_iter = 1000, interval_size = 0.95)
 ```
-Returns a top and bottom limit of a 95% confidence interval at values of `lags`. The returned confidence interval corresponds to the null hypothesis (no serial dependence), if the estimated serial dependence lies in this interval, no significant correlations can be claimed.
+Returns a top and bottom limit of the confidence interval at values of `lags`. The width of the confidence interval can be choosen (defaults to 95%). The returned confidence interval corresponds to the null hypothesis (no serial dependence), if the estimated serial dependence lies in this interval, no significant correlations can be claimed.
 
 > **Parameters**:
 
@@ -66,8 +66,9 @@ Returns a top and bottom limit of a 95% confidence interval at values of `lags`.
 >>* **coef_func** ([function](https://docs.julialang.org/en/v1/manual/functions/)): the function for which the CI needs to be computed.
             `coef_func` can be one of the following **functions** : `cramer_coefficient`, `cohen_coefficient` or `theils_U`.
 >>* **n_iter** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): number of iterations for the bootstrap procedure. The higher, the more precise but more computationaly demanding. Defaults to 1000.
+>>* **interval_size** ([Float](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): Desired size of the confidence interval. Defaults to 0.95, for a 95% confidence interval.
 
-> **Returns**: `(top_values, bottom_values)`, the top and bottom limit for the 95% CI, for each point in `lags`.
+> **Returns**: `(top_values, bottom_values)`, the top and bottom limit for confidence interval, for each point in `lags`.
 
 ## Example
 Using the Pewee [birdsong data](https://github.com/johncwok/CategoricalTimeSeries.jl/tree/main/test) (1943) one can do a serial dependence plot using Cohen's cofficient as follow :
