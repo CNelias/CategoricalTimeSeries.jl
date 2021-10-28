@@ -60,12 +60,12 @@ plot(f, se, xlabel = "Frequency", ylabel = "Intensity", title = "test data: extr
 
 To get the associated optimal mapping for the peak at frequency 0.33:
 ```
-mappings = get_mappings(data, 0.33)
->> position of peak: 0.33 strengh of peak: 0.01
+mappings = get_mappings(data, 0.33; m = 0)
+>> position of peak: 0.33 strengh of peak: 0.02
 print(mappings)
 >> Dict{SubString{String}, Float64} with 4 entries:
-  "A" => 0.54
-  "T" => -0.57
+  "A" => -0.59
+  "T" => 0.55
   "C" => 0.0
-  "G" => 0.62
+  "G" => 0.6
 ```
