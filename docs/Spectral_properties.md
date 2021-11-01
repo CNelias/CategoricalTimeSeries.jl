@@ -4,7 +4,7 @@ The **spectral envelope** is a tool to study cyclic behaviors in categorical dat
 
 For each frequency in the spectrum, the **spectral envelope** finds an optimal real-numbered mapping that maximizes the normed power-spectral density at this point. Therefore, no matter what mapping is choosen for the different categories, the power-spectral density will always be bounded by the spectral envelope.
 
-The spectral envelope was defined by David S. Stoffer in *DAVID S. STOFFER, DAVID E. TYLER, ANDREW J. MCDOUGALL, Spectral analysis for categorical time series: Scaling and the spectral envelope*.
+The spectral envelope was defined by David S. Stoffer in *DAVID S. STOFFER, DAVID E. TYLER, ANDREW J. MCDOUGALL*, [Spectral analysis for categorical time series: Scaling and the spectral envelope](https://www.jstor.org/stable/2337182).
 
 ## Main functions
 - - -

@@ -4,7 +4,7 @@ Time-series sometimes present **repeating motifs** (or patterns) that are worthw
 
 In the case of categorical time-series, the lack of proper metric to measure distance between motifs can make their detection tricky. Improper distances like the number of differences between the two motifs is commonly used.
 
-This package proposes a detection algorithm based on JEREMY BUHLER and MARTIN TOMPA's paper "*Finding Motifs Using Random Projections*". This algorithm although very precise is not exact. Therefore, when you are done detecting potential motifs with the `detect_motifs` function, you can refine your results with `find_motifs` for an exact search.
+This package proposes a detection algorithm based on JEREMY BUHLER and MARTIN TOMPA's paper "[Finding Motifs Using Random Projections](https://pubmed.ncbi.nlm.nih.gov/12015879/)". This algorithm although very precise is not exact. Therefore, when you are done detecting potential motifs with the `detect_motifs` function, you can refine your results with `find_motifs` for an exact search.
 <br/> The main functions return instances of a class called **pattern**:
 - - -
 **pattern — Class**
@@ -117,4 +117,3 @@ Now, we visualize the repetitions of the motif in the time-series:
 plot_motif(motif, data)
 ```
 <img src=https://user-images.githubusercontent.com/34754896/136664810-50cb437a-6924-4ba8-a562-c6e6784affcd.PNG width = "800">
-
