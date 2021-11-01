@@ -2,7 +2,7 @@
 
 Time-series sometimes present **repeating motifs** (or patterns) that are worthwhile identifying. The detection of such motifs can be difficult depending on the amount of noise in the time-series. <br/>
 
-In the case of categorical time-series, the lack of proper metric to measure distance between motifs can make their detection tricky. Improper distances like the number of differences between the two motifs is commonly used.
+In the case of categorical time-series, the lack of a proper metric to measure distance between motifs can make their detection tricky. Improper distances like the number of differences between the two motifs is commonly used.
 
 This package proposes a detection algorithm based on JEREMY BUHLER and MARTIN TOMPA's paper "*Finding Motifs Using Random Projections*". This algorithm although very precise is not exact. Therefore, when you are done detecting potential motifs with the `detect_motifs` function, you can refine your results with `find_motifs` for an exact search.
 <br/> The main functions return instances of a class called **pattern**:
@@ -23,7 +23,7 @@ A class storing useful information about found motifs in a time-series. An array
 ```Julia
 detect_motifs(ts, w, d, t = w - d; iters = 1000, tolerance = 0.95)
 ```
-Detects all motifs of length 'w' occuring more often than chance, being identical to each other up to 'd' differences inside of imput time-series 'ts'.
+Detects all motifs of length 'w' occuring more often than chance, being identical to each other up to 'd' differences inside of input time-series 'ts'.
 Returns an array of `pattern`, inside of which the patterns are classified by how frequently they are observed. The first elements is therefore the most frequently observed motif, and so on.
 > **Parameters**:
 
