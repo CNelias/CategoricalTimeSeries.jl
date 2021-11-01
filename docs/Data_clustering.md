@@ -6,7 +6,7 @@ The goal of this algorithm is to cluster categorical data while preserving predi
 To learn more about the information bottleneck you can look at [[1](https://arxiv.org/abs/1604.00268)] or [[2](https://doi.org/10.1080/09298215.2015.1036888)]
 
 ## Quick start
-To do a simple IB clustering of categorical, the first step is to instantiate an ```IB``` model. Then optimize it via the ```IB_optimize!``` function to obtain to obtain the optimal parameters.
+To do a simple IB clustering of a categorical time series, the first step is to instantiate an ```IB``` model. Then optimize it via the ```IB_optimize!``` function to obtain to obtain the optimal parameters.
 ```
 data = readdlm("/path/to/data/") 
 model = IB(data) #you can call IB(x, beta). beta is a real number that controls the amount of compression.
@@ -56,7 +56,7 @@ Defines and return the **context** associated with the input time-series `data`.
 > **Parameters**:
 
 >>* **data** ([Array{Any,1}](https://docs.julialang.org/en/v1/base/arrays/)): 1-D Array containing input categorical time-series.
->>* **type** ([String](https://docs.julialang.org/en/v1/manual/strings/)): type of context to use. Possible values are "nn" or "an". Defaults to "nn" (for *next neighbor*). This means, if data = ["a","b","c","a","b"], the "nn" context vector y is ["b","c","a","b"]. Chosing "an" (for adjacent neighbors) not only includes the next neighbor but also the previous neighbor, every element of y is then a tuple of previous and next neihbor.
+>>* **type** ([String](https://docs.julialang.org/en/v1/manual/strings/)): type of context to use. Possible values are "nn" or "an". Defaults to "nn" (for *next neighbor*). This means, if data = ["a","b","c","a","b"], the "nn" context vector y is ["b","c","a","b"]. Chosing "an" (for adjacent neighbors) not only includes the next neighbor but also the previous neighbor, every element of y is then a tuple of previous and next neighbor.
 
 > **Returns**: `y`, associated context to `data`.
 
@@ -80,7 +80,7 @@ Computes the different metrics (*H(T), I(X;T), I(Y;T)* and *L*) of an IB model b
 ```
 search_optima!(model::IB, n_iter = 10000)
 ```
-Otimization is not 100% guaranteed to converge to a **global maxima**. this function initializes and optimizes the provided `IB` model `n_iter` times, then, the optimization with the lowest `L` value is selected. The provided `IB` is updated in place. <br/>
+Optimization is not 100% guaranteed to converge to a **global maxima**. this function initializes and optimizes the provided `IB` model `n_iter` times, then, the optimization with the lowest `L` value is selected. The provided `IB` is updated in place. <br/>
 > **Parameters**:
 
 >>* **model**: an IB model
@@ -179,7 +179,7 @@ scatter!(a, x, y, color = "black", markersize = 1.7, xlabel = "I(X;T) \n", ylabe
 <img src=https://user-images.githubusercontent.com/34754896/90395817-72438d00-e095-11ea-8872-3030db40539c.PNG width = "600">
 
 ## Acknowledgments
-Special thanks to Nori jacoby from whom I learned a lot on the subject. The IB part of this code was tested with his data and reproduces his results. <br/>
+Special thanks to Nori Jacoby from whom I learned a lot on the subject. The IB part of this code was tested with his data and reproduces his results. <br/>
 The present implementation is adapted from DJ Strouse's paper https://arxiv.org/abs/1604.00268 and his python implementation.
 
 
