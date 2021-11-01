@@ -259,7 +259,7 @@ function qt_step!(m::IB, clust_thres; report = true)
     dropped = m.qt .< clust_thres
     if any(dropped) && size(m.qt)[1] > 1
         if report
-            println("$(length(dropped[dropped])) clusters dropped, $(length(dropped[.~dropped])) ramaining.")
+            println("$(length(dropped[dropped])) clusters dropped, $(length(dropped[.~dropped])) remaining.")
         end
         m.qt = m.qt[.~dropped]
         m.qt_x = drop_rows(m.qt_x, dropped)

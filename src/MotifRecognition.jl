@@ -31,7 +31,7 @@ struct pattern
 end
 
 """
-    detect_motifs(ts, w, d, t = w - d; iters = 1000, tolerance = 0.95)
+    detect_motifs(ts, w, d, t = w - d; iters = 1000, tolerance = 0.7)
 
 Detects all motifs of length 'w' occuring more often than chance, being identical up to 'd' differences.
 Input:

@@ -42,7 +42,7 @@ While several implementations of categorical time-series analysis methods are ac
 This toolbox was designed to be easy to use and produce results that are simple to plot. 
 Consequently, the methods implemented in the package take as input 1-D arrays of any type. 
 Type conversion and pre-processing (when needed) are done automatically within the methods without the need for additional coding by the user.
-The results are either formatted in a way that can be plotted directly with the built-in ```Plots``` library, or a helper function is provided for visualization and interpretation.
+The results are either formatted in a way that can be plotted directly with the  ```Plots.jl``` library, or a helper function is provided for visualization and interpretation.
 
 We now present the main functionalities.
 
