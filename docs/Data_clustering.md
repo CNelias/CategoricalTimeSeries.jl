@@ -6,9 +6,9 @@ The goal of this algorithm is to cluster categorical data while preserving predi
 To learn more about the information bottleneck you can look at [[1](https://arxiv.org/abs/1604.00268)] or [[2](https://doi.org/10.1080/09298215.2015.1036888)]
 
 ## Quick start
-To do a simple IB clustering of categorical, the first step is to instantiate an ```IB``` model. Then optimize it via the ```IB_optimize!``` function to obtain to obtain the optimal parameters.
+To do a simple IB clustering of categorical data, the first step is to instantiate an ```IB``` model. Then optimize it via the ```IB_optimize!``` function to obtain to obtain the optimal parameters.
 ```
-data = readdlm("/path/to/data/") 
+data = readdlm("/path/to/data/")
 model = IB(data) #you can call IB(x, beta). beta is a real number that controls the amount of compression.
 IB_optimize!(model)
 ```
@@ -19,6 +19,7 @@ To see the results, you can use:
 print_results(model)
 ```
 Rows are clusters and columns correspond to the input categories. The result is the probability **p(t|x)** of a category belonging to a given cluster. Since most of the probabilities are very low, ```print_results``` **sets every p(t|x) > 0.1 to 1**. **p(t|x) < 0.1** are set to **0 otherwise** for ease of readability (see further usage for more options).
+The optimized parameters may vary from one optimization to the next as the algorithm is not deterministic, to obtain global optima, use the ```search_optima``` function (see below).
 
 ## Further usage
 To have a better grasp of the results produced by IB clustering, it is important to understand the parameters influencing the algorithm of **IB** model structures.
@@ -138,14 +139,15 @@ using CSV, DataFrames
 data_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "bach_histogram")
 bach = DataFrame(CSV.File(data_path))
 pxy = Matrix(bach)./sum(Matrix(bach)) #normalizing the co-occurence table to have probabilities.
-model = IB(pxy, 1000) #instantiating the model with co-occurence probabilities.
-IB_optimize!(model)
+model = IB(pxy, 20) #instantiating the model with co-occurence probabilities.
+search_optima!(model, 1000)
 print_results(model)
 ```
 
-The output is in accordance with western music theory. It tells us that we can group category 1, 3 and 6 together: this corresponds to the *tonic* function in classical harmony. Category 2 and 4 have been clustered together, this is what harmony calls *subdominant*. Finally category 5 and 7 are joined : this is the *dominant* function.
+The output is in accordance with western music theory, but reveals interesting features. It tells us that we can group category 1, 3: this corresponds to the *tonic* function in classical harmony. Category 5 and 7 are joined: this is the *dominant* function.
+Interestingly, category 2 and 4 (*subdominant* function) have not been clustered together, revealing that they are not used in a totally equivalent fashion in Bach's chorales.
 
-<img src=https://user-images.githubusercontent.com/34754896/90241511-7c625300-de2b-11ea-800d-3cee1da9fdf5.PNG width = "400">
+<img src=https://user-images.githubusercontent.com/34754896/139694753-c4f97601-7ebe-4b70-8781-1e51e4deb842.PNG width = "400">
 
 - - -
 In the next example, we instantiate the model with a time-series ([saxophone solo](https://github.com/johncwok/IntegerIB.jl/tree/master/data)) and define our own context.
