@@ -229,7 +229,16 @@ function get_mappings(data, freq; m = 3)
     delta = f[2] - f[1]
     window = Int(div(0.04*length(f),1))
     peak_pos = findmin([abs(freq - delta*i) for i in 1:length(f)])[2]
-    true_pos = findmax(se[peak_pos-window:peak_pos+window])[2] + peak_pos - window - 1
+    #fixing boundary for the window search to avoid out of boundary errors.
+    lower_bound = peak_pos - window
+    upper_bound = peak_pos + window
+    if lower_bound < 1
+        true_pos = findmax(se[1 : upper_bound])[2]
+    elseif upper_bound > length(se)
+        true_pos = findmax(se[lower_bound : length(se)])[2] + peak_pos - window - 1
+    else
+        true_pos = findmax(se[lower_bound : upper_bound])[2] + peak_pos - window - 1
+    end
     mappings = Dict(categories[i] => round(eigvecs[i,true_pos]; digits = 2) for i in 1:length(eigvecs[:,1]))
     if length(categories) != length(eigvecs[:,1])
         push!(mappings, unique(data)[end] => 0.0)

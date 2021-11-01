@@ -4,7 +4,7 @@ The **spectral envelope** is a tool to study cyclic behaviors in categorical dat
 
 For each frequency in the spectrum, the **spectral envelope** finds an optimal real-numbered mapping that maximizes the normed power-spectral density at this point. Therefore, no matter what mapping is choosen for the different categories, the power-spectral density will always be bounded by the spectral envelope.
 
-The spectral envelope was defined by David S. Stoffer in *DAVID S. STOFFER, DAVID E. TYLER, ANDREW J. MCDOUGALL, Spectral analysis for categorical time series: Scaling and the spectral envelope*.
+The spectral envelope was defined by David S. Stoffer in *DAVID S. STOFFER, DAVID E. TYLER, ANDREW J. MCDOUGALL*, [Spectral analysis for categorical time series: Scaling and the spectral envelope](https://www.jstor.org/stable/2337182).
 
 ## Main functions
 - - -
@@ -60,12 +60,12 @@ plot(f, se, xlabel = "Frequency", ylabel = "Intensity", title = "test data: extr
 
 To get the associated optimal mapping for the peak at frequency 0.33:
 ```
-mappings = get_mappings(data, 0.33)
->> position of peak: 0.33 strengh of peak: 0.01
+mappings = get_mappings(data, 0.33; m = 0)
+>> position of peak: 0.33 strengh of peak: 0.02
 print(mappings)
 >> Dict{SubString{String}, Float64} with 4 entries:
-  "A" => 0.54
-  "T" => -0.57
+  "A" => -0.59
+  "T" => 0.55
   "C" => 0.0
-  "G" => 0.62
+  "G" => 0.6
 ```

@@ -1,6 +1,6 @@
 # Correlations
 The study of categorical data prevents the usage of standard tools like the autocorrelation function, as they are often not defined. The following functions provide ways to study categorical serial dependences.  
-Most of these methods are described in C. Weiss's book "*An Introduction to Discrete-Valued Time Series*" (2018)[1].
+Most of these methods are described in C. Weiss's book "[An Introduction to Discrete-Valued Time Series](https://onlinelibrary.wiley.com/doi/book/10.1002/9781119097013)" (2018).
 ## Main functions
 - - -
 **cramer_coefficient — Function**
@@ -86,6 +86,3 @@ a = plot(lags, v, xlabel = "Lags", ylabel = "K", label = "Cohen's k")
 plot!(a, lags, t, color = "red", label = "Limits of 95% CI"); plot!(a, lags, b, color = "red", label = "", dpi = 600)
 ```
 <img src=https://user-images.githubusercontent.com/34754896/139043402-7321dfda-c741-473d-bcb2-57a5ee217946.png width = "600">
-
-
-[1] DOI : 10.1002/9781119097013
