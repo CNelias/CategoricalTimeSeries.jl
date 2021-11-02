@@ -25,7 +25,7 @@ bibliography: paper.bib
 **CategoricalTimeSeries.jl** is a [Julia](https://github.com/JuliaLang/julia) toolbox made for analysing categorical time-series. 
 
 Categorical time-series are time-sequenced data in which the values at each time point are categories rather than measurements.
-The common approach to deal with categorical time-series consists in transforming the data via a mapping to obtain a real-valued time-series.
+The common approach to deal with categorical time-series consists in transforming the data via a mapping to obtain a real-valued sequence.
 This enables the use of traditional time-series analysis methods. However, most of these methods (power-spectral density estimation, correlation coefficients, dimensionality reduction etc.)
 are not invariant under general transformations and will produce different results based on the choice of mapping. 
 Therefore, depending on the type of categorical data and the problem at hand, it is desirable to have methods that work with the direct categorical values themselves. 
@@ -34,7 +34,7 @@ The purpose of **CategoricalTimeSeries.jl** is to provide such tools. The packag
 
 # Statement of need
 
-While several implementations of categorical time-series analysis methods are accessible online, they are written in different languages, some of which are not free (e.g. Matlab). Additionally, no implementations for methods such as the *spectral envelope* or the *random projection* (see *Overview of functionalities* below) are available online. This package centralizes and implements most of the standard methods of categorical time-series analysis in a single toolbox fully written in the Julia language. 
+While several implementations of categorical time-series analysis methods are already available, they are written in different languages, some of which are not free (e.g. Matlab). Additionally, no implementations for methods such as the *spectral envelope* or the *random projection* (see *Overview of functionalities* below) are available online. This package centralizes and implements most of the standard methods of categorical time-series analysis in a single toolbox fully written in the Julia language. 
 
 
 # Overview of functionalities
