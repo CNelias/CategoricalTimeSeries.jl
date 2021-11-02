@@ -13,16 +13,16 @@ test_ts_float = Float64[1.1, 2.1, 1.1, 2.1, 1.1, 3.1, 4.1, 2.1, 1.1, 1.1, 4.1, 2
 @testset "AssociationMeasurement" begin
   pewee_path = joinpath(dirname(dirname(pathof(CategoricalTimeSeries))), "test", "pewee.txt")
   pewee = Int64.(readdlm(pewee_path, ',')[1,:])
-  @test round(cramer_coefficient(pewee, Int64(4))[1], digits = 2) == 0.46
-  @test round(cohen_coefficient(pewee, Int64(4))[1], digits = 2) == 0.55
+  @test round(cramer_coefficient(pewee, Int64(4))[1], digits = 2) == 0.89
+  @test round(cohen_coefficient(pewee, Int64(4))[1], digits = 2) == 0.83
   #this one was not in the book, but the plot correctly reproduces the results.
   @test round(theils_u(pewee,[1])[1], digits = 2) == 0.55
   @test round(H(pewee), digits = 2) == 1.49
   #testing if integer and float input are also working
-  @test round(cramer_coefficient(test_ts_integer, Int64(4))[1], digits = 2) == 0.04
-  @test round(cramer_coefficient(test_ts_float, Int64(4))[1], digits = 2) == 0.04
-  @test round(cohen_coefficient(test_ts_integer, Int64(4))[1], digits = 2) == -0.04
-  @test round(cohen_coefficient(test_ts_float, Int64(4))[1], digits = 2) == -0.04
+  @test round(cramer_coefficient(test_ts_integer, Int64(4))[1], digits = 2) == 0.18
+  @test round(cramer_coefficient(test_ts_float, Int64(4))[1], digits = 2) == 0.18
+  @test round(cohen_coefficient(test_ts_integer, Int64(4))[1], digits = 2) == -0.06
+  @test round(cohen_coefficient(test_ts_float, Int64(4))[1], digits = 2) == -0.06
   @test round(theils_u(test_ts_integer, Int64(4))[1], digits = 2) == 0.13
   @test round(theils_u(test_ts_float, Int64(4))[1], digits = 2) == 0.13 
   @test round(H(test_ts_integer), digits = 2) == 1.85
