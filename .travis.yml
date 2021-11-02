@@ -9,3 +9,6 @@ notifications:
   email:
     on_success: never
     on_failure: never
+after_success:
+- julia -e 'using Pkg; cd(Pkg.dir("MyPkg")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+
