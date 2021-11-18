@@ -13,4 +13,5 @@ As is the case in power-spectral density estimation, (e.g. Welch's method) a car
 At the moment, the package samples n optimizations and selects the one that has the lowest cost. This is a working approach, but can be computationally costly depending on the amount of datapoints and categories. Simulated annealing could be a way to reduce computation time.
 - Find a way to display the results of the **Information bottleneck** clusterings in a more visually comprehensive manner. At the moment, a DataFrame filled with 1 and 0s indicating appartenance to different clusters is used,
 which can be hard to interpret when many categories are involved.
+- add doc entry for ```apply_mapping```` function and correct export from apply_mappings to apply_mapping.
 
