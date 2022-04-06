@@ -17,3 +17,17 @@ Pkg.add("CategoricalTimeSeries")
 
 ## Documentation
 The [documentation](https://categoricaltimeseriesjl.readthedocs.io/en/latest/) is available at https://categoricaltimeseriesjl.readthedocs.io/en/latest/ and provides comprehensive explanations, examples and a descriptive list of all usefull functions. 
+
+### Reference
+If you have been using this package in a scientific publication, please consider citing it:
+```Bibtex
+@article{nelias2021categoricaltimeseries,
+  title={CategoricalTimeSeries. jl: A toolbox for categorical time-series analysis},
+  author={Nelias, Corentin},
+  journal={Journal of Open Source Software},
+  volume={6},
+  number={67},
+  pages={3733},
+  year={2021}
+}
+```
