@@ -6,14 +6,57 @@ include("Thresholds.jl")
 
 """
     S_matrix(ts, window)
-
 Returns S matrix containing all segments of length 'window' in 'ts'.
 Done with a sliding window.
 """
 function S_matrix(ts, window)
-    S = Array{typeof(ts[1]),2}(undef, length(ts) - window, window)
+    S = Array{typeof(ts[1]), 2}(undef, length(ts) - window, window)
     for index in 1:length(ts) - window
         S[index,:] = ts[index:index+window-1]
+    end
+    return S
+end
+
+"""
+    S_matrix(ts::Vector{Vector{Int or Float or String}}, window)
+Returns S matrix containing all segments of length 'window' in 'ts'.
+Done with a sliding window.
+'ts' is a vector of vectors containing different timeseries of measurments originating from a common process.
+The different timeseries in 'ts' do not need to be of the same length
+"""
+function S_matrix(ts::Union{Array{Array{Int32, 1}, 1}, Array{Array{Int64, 1}, 1},Array{Array{Float32, 1}, 1}, Array{Array{Float64, 1}, 1}, Array{Array{String, 1}, 1}}, window)
+    @warn "The identification of the position of the detected motifs (via the functon 'find_motifs') only works for an input of a single timeseries (vectorial input)."
+    totalLength = 0
+    for s in ts
+        totalLength += length(s) - window
+    end
+    S = Array{typeof(ts[1][1]), 2}(undef, totalLength, window)
+    currentLength = 0
+    for series_idx in eachindex(ts)
+        for entry_idx in 1:length(ts[series_idx]) - window
+            S[entry_idx + currentLength, :] = ts[series_idx][entry_idx:entry_idx+window-1]
+        end
+        currentLength += length(ts[series_idx]) - window
+    end
+    return S
+end
+
+"""
+    S_matrix(ts::Matrix{Int or Float or String}}, window)
+Returns S matrix containing all segments of length 'window' in 'ts'.
+Done with a sliding window.
+'ts' is a matrix of different timeseries, which dimensions are the the different vectors representing the timeseries and the time.
+"""
+function S_matrix(ts::Union{Array{Int32, 2}, Array{Int64, 2}, Array{Float32, 2}, Array{Float64, 2}, Array{String, 2}}, window)
+    @warn "The identification of the position of the detected motifs (via the functon 'find_motifs') only works for an input of a single timeseries (vectorial input)."
+    totalLength = size(ts)[1]*(size(ts)[2]-window)
+    S = Array{typeof(ts[1, 1]), 2}(undef, totalLength, window)
+    currentLength = 0
+    for series_idx in 1:size(ts)[1]
+        for entry_idx in 1:size(ts)[2] - window
+            S[entry_idx + currentLength, :] = ts[series_idx, entry_idx:entry_idx+window-1]
+        end
+        currentLength += size(ts)[2] - window
     end
     return S
 end
