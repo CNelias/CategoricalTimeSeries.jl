@@ -23,11 +23,11 @@ A class storing useful information about found motifs in a time-series. An array
 ```Julia
 detect_motifs(ts, w, d, t = w - d; iters = 1000, tolerance = 0.95)
 ```
-Detects all motifs of length 'w' occuring more often than chance, being identical to each other up to 'd' differences inside of input time-series 'ts'.
+Detects all motifs of length 'w' occuring more often than chance, being identical to each other up to 'd' differences inside of input time-series 'ts'. 'ts' can be a single vector containing one timeseries, a vector of vectors or a matrix containing several timeseries.
 Returns an array of `pattern`, inside of which the patterns are classified by how frequently they are observed. The first elements is therefore the most frequently observed motif, and so on.
 > **Parameters**:
 
->>* **ts** ([Array{Any,1}](https://docs.julialang.org/en/v1/base/arrays/)): input time-series in which motifs are searched for.
+>>* **ts** ([Array{Any,1}, Array{Array{Any,1}, 1}, Array{Any, 2}](https://docs.julialang.org/en/v1/base/arrays/)): input time-series in which motifs are searched for.
 >>* **w** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): length of motifs to look for.
 >>* **d** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): allowed errors (differences) between motifs repetitions.
 >>* **t = w - d** ([Int](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)): size of the masks to use for random projection in the detection (defaults to w - d).
